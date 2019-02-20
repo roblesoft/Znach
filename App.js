@@ -1,18 +1,17 @@
 import React from 'react';
 import axios from 'axios'
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-
-export default class App extends React.Component {
+import {createStackNavigator, createAppContainer} from 'react-navigation'
+class App extends React.Component {    
   constructor(props){
     super(props)
-    this.state = {email: '',
-                  password: ''}
+    this.state = {email: '', password: ''}
     this.text = ''
   }
   buttonClicked = () => {
 
     const data = this.state
-    axios.post('http://polar-savannah-83006.herokuapp.com/publications', {
+    /*axios.post('http://polar-savannah-83006.herokuapp.com/publications', {
       email: data.email, password: data.password} )
 
       .then( response => {
@@ -21,56 +20,110 @@ export default class App extends React.Component {
         .catch(error  => {
           console.log(error)
         })
+        */
   }
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.titleStyle}><Text style={styles.header}>Znach</Text></View>
-        <Text>Email</Text>
         <TextInput
           style={styles.input}
           placeholder="Nombre"
           onChangeText={(text) => this.setState({text})}
         />
-        <Text>Password</Text>
         <TextInput
           style={styles.input}
-          placeholder="Nombre"
-          onChangeText={(text) => this.setState({password})}
-        />
-        <Button title="click me" onPress={this.buttonClicked}/>
-
+          placeholder="Contraseña"
+          secureTextEntry={true}
+          onChangeText={(password) => this.setState({password})}
+        />textpassword
+        <View style={styles.boton}>
+          <Text style={styles.textoBoton} onPress={this.buttonClicked}>Iniciar sesion</Text>
+        </View>
+        <Text style={styles.textoGris}>No tienes cuenta?</Text>
+        <Text style={styles.link}>Registrate</Text>
       </View>
     );
   }
 }
 
+class Register extends React.Component{
+  render(){
+    return(
+      <View style={styles.container}>
+        <Text>Registrate</Text>
+      </View>
+    );
+  }
+
+  
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
+    backgroundColor: '#FFF30F',
+
     justifyContent: 'center',
   },
   titleStyle: {
     alignItems: 'center',
-
     justifyContent: 'center'
   },
   header: {
     fontSize: 80,
   },
+
   input: {
     height: 40,
-    backgroundColor: '#ebebeb',
+    backgroundColor: '#fff',
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 5,
     paddingTop: 5,
-    width: 150,
+    width: 280,
     height: 50,
-    borderRadius: 10
+    borderRadius: 100,
+    marginBottom: 20
+  },
+  boton: {
+    width: 280,
+    backgroundColor: '#00ADB5',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 2,
+    height: 50,
+    borderRadius: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20
 
+  },
+  textoBoton: {
+    fontWeight: 'bold',
+    color: '#000'
 
+  },
+  textoGris: {
+    fontWeight: 'bold',
+    color: 'gray',
+
+  },
+  link: {
+    color: 'blue'
   }
 });
+
+
+const RootStack =  createStackNavigator({
+  Home:{ 
+    screen: App
+  },
+  Registration: {
+    screen: Register
+  }
+})
+
+const Appl = createAppContainer(RootStack)
+export default Appl
