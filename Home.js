@@ -21,10 +21,16 @@ export default class App extends React.Component {
         })
         */
   }
+
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.titleStyle}><Text style={styles.header}>Znach</Text>
+      <View>
+        <View style={styles.headerLogin}>
+
+          <Image style={{width: 310, height: 100}} resizeMode={'strech'}source={require('./assets/znach.png')}/>
+         
+        </View>
+        <View style={styles.form}>
         <TextInput
           style={styles.input}
           placeholder="Nombre"
@@ -42,19 +48,16 @@ export default class App extends React.Component {
         <Text style={styles.textoGris}>¿No tienes cuenta?</Text>
         <Text style={styles.link}
               onPress={() => this.props.navigation.navigate('Registration')}>Registrate</Text>
+        </View>
       </View>
-    </View>
     );
   }
 }
 
-
 const styles = StyleSheet.create({
-  container: {
+  tain: {
     flex: 1,
-    backgroundColor: '#FFF30F',
-
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   titleStyle: {
     alignItems: 'center',
@@ -63,10 +66,21 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 80,
   },
-
+  headerLogin: {
+    backgroundColor: '#FFF63D',
+    height: 300,
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
+    shadowColor: 'gray',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.4,
+    shadowRadius: 8,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   input: {
-    height: 40,
-    backgroundColor: '#fff',
+    backgroundColor: '#ebebeb',
     paddingLeft: 10,
     paddingRight: 10,
     paddingBottom: 5,
@@ -77,22 +91,24 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   boton: {
-    width: 280,
+    width: 150,
     backgroundColor: '#00ADB5',
-    shadowColor: '#000',
+    shadowColor: 'gray',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
-    shadowRadius: 2,
+    shadowRadius: 8,
     height: 50,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20
+    marginBottom: 20,
+    marginTop: 10
 
   },
   textoBoton: {
     fontWeight: 'bold',
-    color: '#000'
+    color: '#FFF',
+    fontSize: 15
 
   },
   textoGris: {
@@ -102,7 +118,11 @@ const styles = StyleSheet.create({
   },
   link: {
     color: 'blue'
+  },
+  form:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 30,
+    marginBottom: 30
   }
 });
-
-
