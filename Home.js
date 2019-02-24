@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
 export default class App extends React.Component {    
   constructor(props){
     super(props)
@@ -24,10 +24,11 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View>
+      <ScrollView>
+              <View>
         <View style={styles.headerLogin}>
 
-          <Image style={{width: 310, height: 100}} resizeMode={'strech'}source={require('./assets/znach.png')}/>
+          <Image style={{width: 310, height: 100}} resizeMode={'stretch'}source={require('./assets/znach.png')}/>
          
         </View>
         <View style={styles.form}>
@@ -50,6 +51,8 @@ export default class App extends React.Component {
               onPress={() => this.props.navigation.navigate('Registration')}>Registrate</Text>
         </View>
       </View>
+</ScrollView>
+
     );
   }
 }

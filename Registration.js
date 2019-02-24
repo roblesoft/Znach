@@ -5,17 +5,17 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 export default class Registration extends React.Component{
     constructor(props){
         super(props)
-        this.data = {email: '', password: ''}
+        this.state = {email: '', password: ''}
 
     }
 
   buttonClicked = () => {
       alert('restrado')
 
-    const data = this.data
+    const data = this.state
     console.log(data)
     axios.post('http://polar-savannah-83006.herokuapp.com/users', {
-      email: data.email, password: data.password} )
+      user: {email: data.email, password: data.password}} )
       .then( response => {
           console.log(response)
         })
@@ -36,14 +36,14 @@ export default class Registration extends React.Component{
             <TextInput
             style={styles.input}
             placeholder="Email"
-            onChangeText={(email) => data.email = email}
+            onChangeText={(email) => this.setState({email})}
             />
             <Text>Contraseña</Text>
             <TextInput
             style={styles.input}
             placeholder="contraseña"
             secureTextEntry={true}
-            onChangeText={(password) => data.password = password }
+            onChangeText={(password) => this.setState({password})}
             />
             <View style={styles.boton}>
             <Text style={styles.textoBoton} onPress={this.buttonClicked}>Registrarse</Text>
