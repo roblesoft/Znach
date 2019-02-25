@@ -10,19 +10,19 @@ export default class App extends React.Component {
   buttonClicked = () => {
 
     const data = this.state
-    /*axios.post('http://polar-savannah-83006.herokuapp.com/publications', {
-      email: data.email, password: data.password} )
-
+    axios.post('http://polar-savannah-83006.herokuapp.com/users/sign_in', {
+      user: {email: data.email, password: data.password}} )
       .then( response => {
+        this.props.navigation.navigate('Profile', {email: this.state.email})
           console.log(response)
         })
         .catch(error  => {
           console.log(error)
         })
-        */
   }
 
   render() {
+
     return (
       <ScrollView>
               <View>
@@ -35,7 +35,7 @@ export default class App extends React.Component {
         <TextInput
           style={styles.input}
           placeholder="Nombre"
-          onChangeText={(text) => this.setState({text})}
+          onChangeText={(email) => this.setState({email})}
         />
         <TextInput
           style={styles.input}
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   boton: {
     width: 150,
     backgroundColor: '#00ADB5',
-    shadowColor: 'gray',
+    shadowColor: '#00ADB5',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.4,
     shadowRadius: 8,
