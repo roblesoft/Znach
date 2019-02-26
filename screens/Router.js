@@ -1,14 +1,12 @@
-import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import {createStackNavigator, createAppContainer} from 'react-navigation'
-import Home from './Home'
-import Registration from './Registration'
-import Profile from './profile'
+import LogIn from './views/logIn'
+import Registration from './views/Registration'
+import Profile from './views/profile'
 
 
 const RootStack =  createStackNavigator({
   Home:{ 
-    screen: Home
+    screen: LogIn
   },
   Registration: {
     screen: Registration

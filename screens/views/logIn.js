@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 import axios from 'axios'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
 export default class App extends React.Component {    
@@ -10,6 +10,7 @@ export default class App extends React.Component {
   buttonClicked = () => {
 
     const data = this.state
+    //inicio de sesion con axios
     axios.post('http://polar-savannah-83006.herokuapp.com/users/sign_in', {
       user: {email: data.email, password: data.password}} )
       .then( response => {
@@ -20,38 +21,42 @@ export default class App extends React.Component {
           console.log(error)
         })
   }
-
   render() {
-
     return (
       <ScrollView>
-              <View>
-        <View style={styles.headerLogin}>
+        <View>
 
-          <Image style={{width: 310, height: 100}} resizeMode={'stretch'}source={require('./assets/znach.png')}/>
-         
+          <View style={styles.headerLogin}>
+
+            <Image 
+              style={{width: 255, height: 80}} 
+              resizeMode={'stretch'}
+              source={require('../../assets/znach.png')}
+              />
+          </View>
+          <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="Nombre"
+            onChangeText={(email) => this.setState({email})}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Contraseña"
+            secureTextEntry={true}
+            onChangeText={(password) => this.setState({password})}
+          />
+          <View style={styles.boton}>
+            <Text 
+              style={styles.textoBoton} 
+              onPress={this.buttonClicked}>Iniciar sesion</Text>
+          </View>
+          <Text style={styles.textoGris}>¿No tienes cuenta?</Text>
+          <Text style={styles.link}
+                onPress={() => this.props.navigation.navigate('Registration')}>Registrate</Text>
+          </View>
         </View>
-        <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          placeholder="Nombre"
-          onChangeText={(email) => this.setState({email})}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry={true}
-          onChangeText={(password) => this.setState({password})}
-        />
-        <View style={styles.boton}>
-          <Text style={styles.textoBoton} onPress={this.buttonClicked}>Iniciar sesion</Text>
-        </View>
-        <Text style={styles.textoGris}>¿No tienes cuenta?</Text>
-        <Text style={styles.link}
-              onPress={() => this.props.navigation.navigate('Registration')}>Registrate</Text>
-        </View>
-      </View>
-</ScrollView>
+      </ScrollView>
 
     );
   }
@@ -88,8 +93,8 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     paddingBottom: 5,
     paddingTop: 5,
-    width: 280,
-    height: 50,
+    width: 260,
+    height: 45,
     borderRadius: 100,
     marginBottom: 20
   },
@@ -98,9 +103,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#00ADB5',
     shadowColor: '#00ADB5',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.4,
+    shadowOpacity: 0.5,
     shadowRadius: 8,
-    height: 50,
+    height: 45,
     borderRadius: 100,
     alignItems: 'center',
     justifyContent: 'center',
@@ -117,10 +122,12 @@ const styles = StyleSheet.create({
   textoGris: {
     fontWeight: 'bold',
     color: 'gray',
+    fontSize: 12
 
   },
   link: {
-    color: 'blue'
+    color: 'blue',
+    fontSize: 12
   },
   form:{
     justifyContent: 'center',

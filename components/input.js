@@ -1,7 +1,6 @@
 import React from 'react'
 import {TextInput, StyleSheet} from 'react-native'
 
-
 export default class Input extends React.component{
     contructor(props){
         super(props)
