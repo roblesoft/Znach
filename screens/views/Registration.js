@@ -5,8 +5,14 @@ import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-nat
 export default class Registration extends React.Component{
     constructor(props){
         super(props)
-        this.state = {email: '', password: ''}
-
+        this.state = {
+          email: '',
+          password: '',
+          name: '',
+          area: '',
+          gen: '',
+          age: ''
+        }
     }
 
   buttonClicked = () => {
@@ -17,10 +23,16 @@ export default class Registration extends React.Component{
     axios.post('http://polar-savannah-83006.herokuapp.com/users', {
       user: {email: data.email, password: data.password}} )
       .then( response => {
-          this.props.navigation.navigate('Profile', {email: this.state.email})
-          console.log(response)
-        })
+          this.props.navigation.navigate('Profile', {
+            email: this.state.email,
+            name: this.state.name,
+            age: this.state.age,
+            gen: this.state.gen,
+            area: this.state.area
+          })
+//          console.log(response)
 
+        })
         .catch(error  => {
           console.log(error)
         })
@@ -36,19 +48,24 @@ export default class Registration extends React.Component{
             <TextInput
             style={styles.input}
             placeholder="Nombre"
+            onChangeText={(name) => this.setState({name})}
             />
             <View style={styles.cols}>
               <TextInput
               style={styles.inputSmall}
-              placeholder="Edad"/>
+              placeholder="Edad"
+              onChangeText={(age) => this.setState({age})}
+              />
               <TextInput
               style={styles.inputSmall}
-              placeholder="Genero"/>
+              placeholder="Genero"
+              onChangeText={(gen) => this.setState({gen})}
+              />
             </View>
             <TextInput
             style={styles.input}
             placeholder="Area de especialidad"
-            onChangeText={(email) => this.setState({email})}
+            onChangeText={(area) => this.setState({area})}
             />
             <TextInput
             style={styles.input}

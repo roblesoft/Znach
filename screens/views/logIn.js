@@ -14,12 +14,13 @@ export default class App extends React.Component {
     axios.post('http://polar-savannah-83006.herokuapp.com/users/sign_in', {
       user: {email: data.email, password: data.password}} )
       .then( response => {
-        this.props.navigation.navigate('Profile', {email: this.state.email})
-          console.log(response)
-        })
-        .catch(error  => {
-          console.log(error)
-        })
+        console.log(response.data)
+        this.props.navigation.navigate('Profile', {email: this.state.email, res: response.data})
+
+      })
+      .catch(error  => {
+        console.log(error)
+    })
   }
   render() {
     return (
