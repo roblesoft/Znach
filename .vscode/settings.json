@@ -1,5 +1,3 @@
 {
     "python.linting.pylintEnabled": true,
-    "vim.autoSwitchInputMethod.enable": true,
-    "vim.statusBarColorControl": true
 }

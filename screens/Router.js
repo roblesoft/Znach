@@ -6,13 +6,13 @@ import Profile from './views/profile'
 
 const RootStack =  createStackNavigator({
   Home:{ 
-    screen: LogIn
+    screen: Profile
   },
   Registration: {
     screen: Registration
   },
   Profile: {
-    screen: Profile
+    screen: LogIn
   }
 }, {headerMode: 'none'})
 
