@@ -73,7 +73,7 @@ export default class Profile extends React.Component{
                         </View>
                     </ScrollView>
                 </View>
-                <MenuBar/>
+                <MenuBar />
             </View>
         );
     }
