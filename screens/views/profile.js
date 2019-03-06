@@ -19,49 +19,58 @@ export default class Profile extends React.Component{
             console.log(error)
         })
     }
+
     render(){
         return(
             <View style={styles.container}>
                 <View style={styles.screenContainer}>
                     <ScrollView>
-                    <View style={styles.header}>
-                        <Text style={styles.titleHeader}>Conoce</Text>
-                        <Text style={styles.textGray}>Descubre emprendedores</Text>
-                    </View>
-                    <View style={styles.screenContainer}>
-                        <FlatList
-                            horizontal={true}
-                            style={styles.list}
-                            data={[
-                                {key: 1, text: 'Desarrollo'},
-                                {key: 2, text: 'Diseño'},
-                                {key: 3, text: 'Finanzas'},
-                                {key: 4, text: 'Marketing'}
-                            ]}
-                            renderItem = { ({item}) => {
-                                <Text style={styles.categories}>{item.text}</Text>
-                            }}
-                        />
+                        <View style={styles.header}>
+                            <Text style={styles.titleHeader}>Conoce</Text>
+                            <Text style={styles.textGray}>encuentra emprendedores como tú</Text>
+                        </View>
+                        <View style={styles.screenContainer}>
+                            <FlatList
+                                horizontal={true}
+                                style={styles.list}
+                                data={[
+                                    {key: 1, text: 'Desarrollo'},
+                                    {key: 2, text: 'Diseño'},
+                                    {key: 3, text: 'Finanzas'},
+                                    {key: 4, text: 'Marketing'}
+                                ]}
+                                renderItem = { ({item}) => 
+                                    <Text style={styles.categories}>{item.text}</Text>
+                                }
+                            />
+                            <View style={styles.welcome}>
+                                <Text style={{color: 'white', fontWeight: 'bold'}}>Encuentra colaboladores en desarrollo de software</Text>
+                            </View>
 
-                        <FlatList
-                            horizontal={true}
-                            style={styles.list}
-                            data={[
-                                {key: 'Uriel'},
-                                {key: 'david'},
-                                {key: 'j'},
-                                {key: 'k'},
-                                {key: 'l'},
-                                {key: 'd'},
-                                {key: 'andrea'}
-                            ]}
-                            renderItem = { ({item}) => 
-                                <Image 
-                                    source={require('../../assets/default-avatar.png')}
-                                    style={styles.avatar} />
-                            }
-                        />
-                    </View>
+                            <FlatList
+                                horizontal={true}
+                                style={styles.list}
+                                data={[
+                                    {key: 'Uriel'},
+                                    {key: 'David'},
+                                    {key: 'Andrea'},
+                                    {key: 'Jorge'},
+                                    {key: 'Rodrigo'},
+                                    {key: 'd'},
+                                    {key: 'andrea'}
+                                ]}
+
+                                renderItem = { ({item}) => 
+                                    <View style={styles.userCont}>
+                                        <Image 
+                                            source={require('../../assets/default-avatar.png')}
+                                            style={styles.avatar} />
+                                        <Text style={styles.name}>{item.key}</Text>
+                                    </View>
+                                }
+                                
+                            />
+                        </View>
                     </ScrollView>
                 </View>
                 <MenuBar/>
@@ -69,7 +78,6 @@ export default class Profile extends React.Component{
         );
     }
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -80,29 +88,54 @@ const styles = StyleSheet.create({
     titleHeader: {
         fontSize: 35,
         fontWeight: 'bold',
-        paddingTop: 40
+        paddingTop: 50
     },
     header:{
         justifyContent: 'center',
-        height: 100,
-        paddingLeft: 10
+        height: 130,
+        paddingLeft: 10,
+        backgroundColor: '#f5f5f5',
+        paddingBottom: 20,
+        borderBottomWidth: 0.5,
+        borderBottomColor: 'gray'
     },
     textGray: {
         fontSize: 15,
         color: 'gray'
     },
     avatar:{
-        borderRadius: 50,
-        height: 100,
-        width: 100,
-        marginRight: 20
+        borderRadius: 35,
+        height: 70,
+        width: 70,
     },
     list: {
         margin: 10
 
     },
     categories: {
-        fontSize: 14,
-        fontWeight: 'bold'
+        fontSize: 18,
+        marginRight: 30,
+        marginTop: 10,
+      
+    },
+    welcome: {
+        width: 300,
+        height: 150,
+        backgroundColor: '#66A0CC',
+        margin: 10,
+        paddingTop: 100,
+        borderRadius: 30,
+        paddingLeft: 20,
+        color: '#fff'
+
+    },
+    userCont:{
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginRight: 20
+    },
+    name: {
     }
+    
 })

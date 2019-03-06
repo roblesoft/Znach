@@ -32,7 +32,9 @@ export default class MenuBar extends React.Component{
         })
         return(
                 <View style={menuStyle.menu}>
-                    <View style={menuStyle.iconButton}>
+                    <View style={menuStyle.iconButton}
+                          onPress={() => this.props.navigation.navigate('Meat')}
+                          >
                         <Image
                         style={menuStyle.icon}
                         source={require('../../assets/profile.png')}
