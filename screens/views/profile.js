@@ -1,79 +1,23 @@
-import React from 'react';
-import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList } from 'react-native';
-import MenuBar from './MenuBar'
-export default class Profile extends React.Component{
+import React from 'react'
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+
+export default class Meat extends React.Component{
     constructor(props){
         super(props)
-        this.state = {email: '', password: ''}
-    }
-    deleteSession = () => {
-        const data = this.state
-        axios.delete('http://polar-savannah-83006.herokuapp.com/users/sign_out', {
-        user: {email: data.email, password: data.password}} )
-        .then( response => {
-            this.props.navigation.navigate('Profile', {email: this.state.email})
-            console.log(response)
-        })
-        .catch(error  => {
-            console.log(error)
-        })
-    }
 
+    }
     render(){
         return(
-            <View style={styles.container}>
-                <View style={styles.screenContainer}>
+            <View styles={styles.container}>
                     <ScrollView>
                         <View style={styles.header}>
-                            <Text style={styles.titleHeader}>Conoce</Text>
-                            <Text style={styles.textGray}>encuentra emprendedores como tú</Text>
+                            <Text style={styles.titleHeader}>Perfil</Text>
                         </View>
-                        <View style={styles.screenContainer}>
-                            <FlatList
-                                horizontal={true}
-                                style={styles.list}
-                                data={[
-                                    {key: 1, text: 'Desarrollo'},
-                                    {key: 2, text: 'Diseño'},
-                                    {key: 3, text: 'Finanzas'},
-                                    {key: 4, text: 'Marketing'}
-                                ]}
-                                renderItem = { ({item}) => 
-                                    <Text style={styles.categories}>{item.text}</Text>
-                                }
-                            />
-                            <View style={styles.welcome}>
-                                <Text style={{color: 'white', fontWeight: 'bold'}}>Encuentra colaboladores en desarrollo de software</Text>
-                            </View>
-
-                            <FlatList
-                                horizontal={true}
-                                style={styles.list}
-                                data={[
-                                    {key: 'Uriel'},
-                                    {key: 'David'},
-                                    {key: 'Andrea'},
-                                    {key: 'Jorge'},
-                                    {key: 'Rodrigo'},
-                                    {key: 'd'},
-                                    {key: 'andrea'}
-                                ]}
-
-                                renderItem = { ({item}) => 
-                                    <View style={styles.userCont}>
-                                        <Image 
-                                            source={require('../../assets/default-avatar.png')}
-                                            style={styles.avatar} />
-                                        <Text style={styles.name}>{item.key}</Text>
-                                    </View>
-                                }
-                                
-                            />
+                        <View style={styles.boton}>
+                            <Text style={styles.textoBoton}
+                                    onPress={()=>{}}>Salir</Text>
                         </View>
                     </ScrollView>
-                </View>
-                <MenuBar />
             </View>
         );
     }
@@ -136,6 +80,26 @@ const styles = StyleSheet.create({
       marginRight: 20
     },
     name: {
-    }
-    
+    },
+    boton: {
+        width: 150,
+        backgroundColor: '#00ADB5',
+        shadowColor: '#00ADB5',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+        height: 45,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        marginTop: 10
+
+    },
+    textoBoton: {
+      fontWeight: 'bold',
+      color: '#FFF',
+      fontSize: 15
+
+  },
 })

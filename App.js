@@ -1,9 +1,11 @@
 import React from 'react';
-import Appl from './screens/Router'
+import createAppContainer from 'react-native'
+import SignedOut from './screens/SignedOut'
+
+import {createRootNavigator} from './screens/Router'
 export default class App extends React.Component{
   render(){
-    return(
-      <Appl/>
-    )
+    const Root = createAppContainer(createRootNavigator());
+    return <Root/>;
   }
 } 

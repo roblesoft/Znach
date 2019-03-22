@@ -54,7 +54,7 @@ export default class App extends React.Component {
           </View>
           <Text style={styles.textoGris}>¿No tienes cuenta?</Text>
           <Text style={styles.link}
-                onPress={() => this.props.navigation.navigate('Registration')}>Registrate</Text>
+                onPress={() => this.props.navigation.navigate('SignUp')}>Registrate</Text>
           </View>
         </View>
       </ScrollView>
