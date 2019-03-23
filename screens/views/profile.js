@@ -6,6 +6,9 @@ export default class Meat extends React.Component{
         super(props)
 
     }
+    buttonClicked = () => {
+        this.props.navigation.navigate('SignedOut')
+    }
     render(){
         return(
             <View styles={styles.container}>
@@ -15,7 +18,7 @@ export default class Meat extends React.Component{
                         </View>
                         <View style={styles.boton}>
                             <Text style={styles.textoBoton}
-                                    onPress={()=>{}}>Salir</Text>
+                                    onPress={this.buttonClicked}>Salir</Text>
                         </View>
                     </ScrollView>
             </View>

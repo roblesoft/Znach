@@ -1,6 +1,5 @@
 import React from 'react';
-import createAppContainer from 'react-native'
-import SignedOut from './screens/SignedOut'
+import {createAppContainer} from 'react-navigation'
 
 import {createRootNavigator} from './screens/Router'
 export default class App extends React.Component{

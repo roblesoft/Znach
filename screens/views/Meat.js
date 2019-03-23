@@ -1,22 +1,26 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
 
-export default class Notifications extends React.Component{
+export default class Meat extends React.Component{
     constructor(props){
         super(props)
-
     }
     render(){
         return(
             <View styles={styles.container}>
-                <ScrollView>
-                    <View style={styles.header}>
-                        <Text style={styles.titleHeader}>Notificaciones</Text>
-                    </View>
-                </ScrollView>
+                    <ScrollView>
+                        <View style={styles.header}>
+                            <Text style={styles.titleHeader}>Encuentra</Text>
+                        </View>
+                        <View style={styles.boton}>
+                            <Text style={styles.textoBoton}
+                                    onPress={this.buttonClicked}>Salir</Text>
+                        </View>
+                    </ScrollView>
             </View>
         );
     }
+
 }
 const styles = StyleSheet.create({
     container: {
@@ -76,6 +80,26 @@ const styles = StyleSheet.create({
       marginRight: 20
     },
     name: {
-    }
-    
+    },
+    boton: {
+        width: 150,
+        backgroundColor: '#00ADB5',
+        shadowColor: '#00ADB5',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
+        height: 45,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 20,
+        marginTop: 10
+
+    },
+    textoBoton: {
+      fontWeight: 'bold',
+      color: '#FFF',
+      fontSize: 15
+
+  },
 })

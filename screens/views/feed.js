@@ -92,10 +92,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         height: 130,
         paddingLeft: 10,
-        backgroundColor: '#f5f5f5',
         paddingBottom: 20,
-        borderBottomWidth: 0.5,
-        borderBottomColor: 'gray'
+
     },
     textGray: {
         fontSize: 15,

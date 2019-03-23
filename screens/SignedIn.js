@@ -1,10 +1,8 @@
-import {createBottomTabNavigator, createAppContainer} from 'react-navigation'
-import Profile from './views/Profile';
-import Feed from './views/feed'
+import AuthNavigation from './AuthNavigation'
+import Rect from 'react'
 
-export const SignedIn = createBottomTabNavigator({
-    Home: Feed,
-    Profile: Profile
-})
-
-//export default createAppContainer(SignedIn)
+export default class SignedIn extends Rect.Component{
+    render(){
+        return <AuthNavigation/> 
+    }
+}

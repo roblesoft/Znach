@@ -1,15 +1,8 @@
-import {createStackNavigator, createAppContainer} from 'react-navigation'
-import SignUp from './views/Registration'
-import LogIn from './views/logIn'
+import OutNavigation from './OutNavigation'
+import Rect from 'react'
 
-export const SignedOut = createStackNavigator({
-    Home: {
-        screen: LogIn
-    },
-    SignUp: {
-        screen: SignUp
+export default class SignedOut extends Rect.Component{
+    render(){
+        return <OutNavigation/> 
     }
-}, {headerMode: 'none'})
-
-//export default createAppContainer(SignedOut)
-//export default SignedOut
+}

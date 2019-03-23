@@ -15,7 +15,7 @@ export default class App extends React.Component {
       user: {email: data.email, password: data.password}} )
       .then( response => {
         console.log(response.data)
-        this.props.navigation.navigate('Profile', {email: this.state.email, res: response.data})
+        this.props.navigation.navigate('SignedIn', {email: this.state.email, res: response.data})
 
       })
       .catch(error  => {

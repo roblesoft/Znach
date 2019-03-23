@@ -1,8 +1,6 @@
 import {createStackNavigator, createAppContainer, createSwitchNavigator} from 'react-navigation'
-import SignedIn from './SignedIn';
-import SignedOut from './SignedOut';
-
-
+import SignedIn from './AuthNavigation';
+import SignedOut from './OutNavigation';
 
 export const createRootNavigator = (signedIn=false) => {
   return createSwitchNavigator(
