@@ -28,16 +28,17 @@ const styles = StyleSheet.create({
     titleHeader: {
         fontSize: 35,
         fontWeight: 'bold',
-        paddingTop: 50
+        paddingTop: 30
     },
     header:{
-        justifyContent: 'center',
-        height: 130,
-        paddingLeft: 10,
-        backgroundColor: '#f5f5f5',
-        paddingBottom: 20,
-        borderBottomWidth: 0.5,
-        borderBottomColor: 'gray'
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        height: 85,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: '#fff529',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
     textGray: {
         fontSize: 15,

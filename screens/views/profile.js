@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default class Meat extends React.Component{
     constructor(props){
@@ -10,15 +11,63 @@ export default class Meat extends React.Component{
         this.props.navigation.navigate('SignedOut')
     }
     render(){
+        const { navigation } = this.props
+        const name = navigation.getParam('email', 'default')
         return(
             <View styles={styles.container}>
                     <ScrollView>
                         <View style={styles.header}>
-                            <Text style={styles.titleHeader}>Perfil</Text>
+                            <View style={styles.logOut}>
+                                <Ionicons 
+                                    name={'ios-settings'} 
+                                    size={25}
+                                    onPress={this.buttonClicked}
+                                    color={'white'}/>
+                                <Ionicons 
+                                    name={'ios-log-out'} 
+                                    size={25}
+                                    onPress={this.buttonClicked}
+                                    color={'white'}/>
+                            </View>
+                            <View style={styles.avatarContainer}>
+                                <Image
+                                    style={styles.avatar}
+                                    source={require('../../assets/default-avatar.png')}/>
+                            </View>
                         </View>
-                        <View style={styles.boton}>
-                            <Text style={styles.textoBoton}
-                                    onPress={this.buttonClicked}>Salir</Text>
+                        <View style={styles.userNameContainer}>
+                            <Text style={styles.userName}>Uriel Robles</Text>
+                        </View>
+                        <View style={styles.skillsContainer}>
+                            <View style={styles.skill}>
+                                <Text style={styles.skillText}>Programador</Text>
+                            </View>
+                        </View>
+                        <View style={styles.statisticsSection}>
+                            <View style={styles.static}>
+                                <View style={styles.staticHalf}>
+                                    <Text style={styles.staticText}>0</Text>
+                                </View>
+                                <View style={styles.staticHalf}>
+                                    <Text style={styles.staticText}>Red</Text>
+                                </View>
+                            </View>
+                            <View style={styles.static}>
+                                <View style={styles.staticHalf}>
+                                    <Text style={styles.staticText}>0</Text>
+                                </View>
+                                <View style={styles.staticHalf}>
+                                    <Text style={styles.staticText}>Seguidores</Text>
+                                </View>
+                            </View>
+                            <View style={styles.static}>
+                                <View style={styles.staticHalf}>
+                                    <Text style={styles.staticText}>0</Text>
+                                </View>
+                                <View style={styles.staticHalf}>
+                                    <Text style={styles.staticText}>Siguiendo</Text>
+                                </View>
+                            </View>
                         </View>
                     </ScrollView>
             </View>
@@ -39,21 +88,24 @@ const styles = StyleSheet.create({
     },
     header:{
         justifyContent: 'center',
-        height: 130,
-        paddingLeft: 10,
-        backgroundColor: '#f5f5f5',
+        height: 230,
+        backgroundColor: '#00ADB5',
         paddingBottom: 20,
-        borderBottomWidth: 0.5,
-        borderBottomColor: 'gray'
+        borderBottomLeftRadius: 25,
+        borderBottomRightRadius: 25,
+        shadowColor: '#00ADB5',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.5,
+        shadowRadius: 8,
     },
     textGray: {
         fontSize: 15,
         color: 'gray'
     },
     avatar:{
-        borderRadius: 35,
-        height: 70,
-        width: 70,
+        borderRadius: 60,
+        height: 120,
+        width: 120,
     },
     list: {
         margin: 10
@@ -84,25 +136,71 @@ const styles = StyleSheet.create({
     },
     name: {
     },
-    boton: {
-        width: 150,
-        backgroundColor: '#00ADB5',
-        shadowColor: '#00ADB5',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 8,
-        height: 45,
-        borderRadius: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 20,
-        marginTop: 10
-
-    },
-    textoBoton: {
+  logOut: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingTop: 30,
+      paddingRight: 20,
+      paddingLeft: 20
+  },
+  userNameContainer: {
+      paddingTop: 60,
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+  },
+  userName: {
       fontWeight: 'bold',
-      color: '#FFF',
-      fontSize: 15
+      fontSize: 30,
+  },
+  avatarContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      marginTop: 90
 
   },
+  skillsContainer: {
+      marginTop: 10,
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+  },
+  skill: {
+      backgroundColor: '#8a29ff',
+      paddingBottom: 5,
+      paddingTop: 5,
+      paddingLeft: 10,
+      paddingRight: 10,
+      borderBottomLeftRadius: 15,
+      borderBottomRightRadius: 15,
+      borderTopLeftRadius: 15,
+      borderTopRightRadius: 15,
+  },
+  skillText: {
+      fontSize: 13,
+      color: 'white',
+  },
+  statisticsSection: {
+      flex: 1,
+      justifyContent: 'space-between',
+      flexDirection: 'row',
+      marginTop: 10,
+      marginBottom: 10
+  },
+  static: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+  },
+  staticHalf: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center'
+  },
+  staticText: {
+      color: 'gray',
+      fontSize: 12
+  }
 })

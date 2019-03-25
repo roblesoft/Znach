@@ -23,45 +23,38 @@ const SignedIn = createBottomTabNavigator({
             switch(routeName) {
                 case 'Home': {
                     iconName = `ios-home`;
-                    iconColor = focused ? '#00ADB5' : '#d9d9d9'
+                    iconColor = focused ? '#00ADB5' : '#cccccc'
                 }
                 break;
                 case 'Meat':{
                     iconName = `ios-people`;
-                    iconColor = focused ? '#00ADB5' : '#d9d9d9'
+                    iconColor = focused ? '#00ADB5' : '#cccccc'
                 }
                 break;
                 case 'Notifications': {
                     iconName = `ios-notifications`
-                    iconColor = focused ? '#00ADB5' : '#d9d9d9'
+                    iconColor = focused ? '#00ADB5' : '#cccccc'
                 }
                 break;
                 case 'Profile': {
                     iconName = `ios-person`
-                    iconColor = focused ? '#00ADB5' : '#d9d9d9'
+                    iconColor = focused ? '#00ADB5' : '#cccccc'
                 }
             }
             return <IconComponent name={iconName} size={25} color={iconColor}/>;
         },
         tabBarLabel: ({focused, tintcolor}) => {
             const { routeName } = navigation.state;
-            let label;
-            let name;
             switch(routeName){
                 case 'Home': 
-                    label = focused ? styles.labelColorFocus : styles.labelColorUnfocus
-                    name = focused ? routeName : ''
+                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
                 case 'Meat':
-                    label = focused ? styles.labelColorFocus : styles.labelColorUnfocus
-                    name = focused ? routeName : ''
+                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
                 case 'Notifications':
-                    label = focused ? styles.labelColorFocus : styles.labelColorUnfocus
-                    name = focused ? routeName : ''
+                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
                 case 'Profile':
-                    label = focused ? styles.labelColorFocus : styles.labelColorUnfocus
-                    name = focused ? routeName : ''
+                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
             }
-            return <Text style={label}>{routeName}</Text>;
         }
     }),
 })

@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList } from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons'
 export default class Profile extends React.Component{
     constructor(props){
         super(props)
@@ -25,27 +26,10 @@ export default class Profile extends React.Component{
                 <View style={styles.screenContainer}>
                     <ScrollView>
                         <View style={styles.header}>
-                            <Text style={styles.titleHeader}>Conoce</Text>
-                            <Text style={styles.textGray}>encuentra emprendedores como tú</Text>
+                            <Text style={styles.titleHeader}>Feed</Text>
+                            <Ionicons style={styles.message} name={'ios-chatbubbles'} size={25}/>
                         </View>
                         <View style={styles.screenContainer}>
-                            <FlatList
-                                horizontal={true}
-                                style={styles.list}
-                                data={[
-                                    {key: 1, text: 'Desarrollo'},
-                                    {key: 2, text: 'Diseño'},
-                                    {key: 3, text: 'Finanzas'},
-                                    {key: 4, text: 'Marketing'}
-                                ]}
-                                renderItem = { ({item}) => 
-                                    <Text style={styles.categories}>{item.text}</Text>
-                                }
-                            />
-                            <View style={styles.welcome}>
-                                <Text style={{color: 'white', fontWeight: 'bold'}}>Encuentra colaboladores en desarrollo de software</Text>
-                            </View>
-
                             <FlatList
                                 horizontal={true}
                                 style={styles.list}
@@ -86,14 +70,21 @@ const styles = StyleSheet.create({
     titleHeader: {
         fontSize: 35,
         fontWeight: 'bold',
-        paddingTop: 50
+        paddingTop: 30
     },
     header:{
-        justifyContent: 'center',
-        height: 130,
-        paddingLeft: 10,
-        paddingBottom: 20,
-
+        justifyContent: 'space-between',
+        flexDirection: 'row',
+        height: 85,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: '#fff529',
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
+    },
+    message: {
+        paddingTop: 40,
+        color: '#000'
     },
     textGray: {
         fontSize: 15,
