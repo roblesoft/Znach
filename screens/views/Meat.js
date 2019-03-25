@@ -21,24 +21,32 @@ export default class Meat extends React.Component{
                             </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
-                            <View style={[styles.categorie, {backgroundColor: '#299eff'}]}>
+                            <TouchableOpacity 
+                                style={[styles.categorie, {backgroundColor: '#299eff'}]}
+                                onPress={() => this.props.navigation.navigate('Tecnologic')}>
                                 <Text style={styles.categoriesText}>Tecnología</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
-                            <View style={[styles.categorie, {backgroundColor: '#86f500'}]}>
+                            <TouchableOpacity 
+                                style={[styles.categorie, {backgroundColor: '#86f500'}]}
+                                onPress={() => this.props.navigation.navigate('Bussines')}>
                                 <Text style={styles.categoriesText}>Negocios</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
-                            <View style={[styles.categorie, {backgroundColor: '#ff8a29'}]}>
+                            <TouchableOpacity 
+                                style={[styles.categorie, {backgroundColor: '#ff8a29'}]}
+                                onPress={() => this.props.navigation.navigate('Science')}>
                                 <Text style={styles.categoriesText}>Ciencias</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
-                            <View style={[styles.categorie, {backgroundColor: '#2933ff'}]}>
+                            <TouchableOpacity 
+                                style={[styles.categorie, {backgroundColor: '#2933ff'}]}
+                                onPress={() => this.props.navigation.navigate('Administration')}>
                                 <Text style={styles.categoriesText}>Administración</Text>
-                            </View>
+                            </TouchableOpacity>
                         </View>
                     </ScrollView>
             </View>
