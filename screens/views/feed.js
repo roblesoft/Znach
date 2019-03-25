@@ -33,6 +33,7 @@ export default class Profile extends React.Component{
                             <FlatList
                                 horizontal={true}
                                 style={styles.list}
+                                showsHorizontalScrollIndicator={false}
                                 data={[
                                     {key: 'Uriel'},
                                     {key: 'David'},

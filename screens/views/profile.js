@@ -15,7 +15,7 @@ export default class Meat extends React.Component{
         const name = navigation.getParam('email', 'default')
         return(
             <View styles={styles.container}>
-                    <ScrollView style={{backgroundColor: '#e9eef3'}}>
+                    <ScrollView style={{backgroundColor: '#f6f8fa'}}>
                         <View style={styles.header}>
                             <View style={styles.logOut}>
                                 <Ionicons 

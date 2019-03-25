@@ -1,20 +1,44 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity } from 'react-native';
 
 export default class Meat extends React.Component{
     constructor(props){
         super(props)
     }
+    static navigationOptions = {
+        title: 'Conoce'
+    }
+
     render(){
         return(
             <View styles={styles.container}>
-                    <ScrollView>
-                        <View style={styles.header}>
-                            <Text style={styles.titleHeader}>Encuentra</Text>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        <View style={styles.categoriesContainer}>
+                            <TouchableOpacity 
+                                style={[styles.categorie, {backgroundColor: '#8a29ff'}]}
+                                onPress={() => this.props.navigation.navigate('Design')}>
+                                <Text style={styles.categoriesText}>Diseño</Text>
+                            </TouchableOpacity>
                         </View>
-                        <View style={styles.boton}>
-                            <Text style={styles.textoBoton}
-                                    onPress={this.buttonClicked}>Salir</Text>
+                        <View style={styles.categoriesContainer}>
+                            <View style={[styles.categorie, {backgroundColor: '#299eff'}]}>
+                                <Text style={styles.categoriesText}>Tecnología</Text>
+                            </View>
+                        </View>
+                        <View style={styles.categoriesContainer}>
+                            <View style={[styles.categorie, {backgroundColor: '#86f500'}]}>
+                                <Text style={styles.categoriesText}>Negocios</Text>
+                            </View>
+                        </View>
+                        <View style={styles.categoriesContainer}>
+                            <View style={[styles.categorie, {backgroundColor: '#ff8a29'}]}>
+                                <Text style={styles.categoriesText}>Ciencias</Text>
+                            </View>
+                        </View>
+                        <View style={styles.categoriesContainer}>
+                            <View style={[styles.categorie, {backgroundColor: '#2933ff'}]}>
+                                <Text style={styles.categoriesText}>Administración</Text>
+                            </View>
                         </View>
                     </ScrollView>
             </View>
@@ -103,4 +127,25 @@ const styles = StyleSheet.create({
       fontSize: 15
 
   },
+  categoriesContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
+      paddingTop: 10
+  },
+  categorie: {
+      borderRadius: 15,
+      width: '100%',
+      height: 100,
+      marginBottom: 5,
+      paddingTop: 20,
+      paddingLeft: 20,
+  },
+  categoriesText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: 25
+  }
 })
