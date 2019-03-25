@@ -15,7 +15,7 @@ export default class Meat extends React.Component{
         const name = navigation.getParam('email', 'default')
         return(
             <View styles={styles.container}>
-                    <ScrollView>
+                    <ScrollView style={{backgroundColor: '#e9eef3'}}>
                         <View style={styles.header}>
                             <View style={styles.logOut}>
                                 <Ionicons 
@@ -69,6 +69,29 @@ export default class Meat extends React.Component{
                                 </View>
                             </View>
                         </View>
+                        <View style={styles.publicationsContainer}>
+                            <View style={styles.publication}>
+                                <View style={styles.publicationHeader}>
+                                    <View style={styles.publicationUser}>
+                                        <Image
+                                            style={styles.avatarPublication}
+                                            source={require('../../assets/default-avatar.png')}/>
+                                            <View styles={styles.publicationInformation}>
+                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                                            </View>
+                                    </View>
+                                    <Ionicons
+                                        name={"ios-more"}
+                                        size={25}/>
+                                </View>
+                                <View style={styles.publicationBody}>
+                                    <Text>Empezando el proyecto</Text>
+
+                                </View>
+
+                            </View>
+                        </View>
                     </ScrollView>
             </View>
         );
@@ -77,6 +100,7 @@ export default class Meat extends React.Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#e6ebf1'
     },
     screenContainer: {
         flex: .9
@@ -202,5 +226,62 @@ const styles = StyleSheet.create({
   staticText: {
       color: 'gray',
       fontSize: 12
+  },
+  publication: {
+      borderWidth: 1,
+      borderColor: '#d0dbe5',
+      paddingLeft: 8,
+      paddingRight: 8,
+      paddingTop: 10,
+      width: '100%',
+      borderRadius: 20,
+      backgroundColor: 'white',
+      shadowColor: 'gray',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.4,
+      shadowRadius: 8,
+  },
+  publicationsContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingRight: 10,
+      paddingLeft: 10,
+      paddingTop: 10,
+  },
+  publicationBody: {
+      marginBottom: 20,
+      paddingLeft: 60
+
+  },
+  publicationHeader:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+
+  },
+  avatarPublication: {
+      height: 50,
+      width: 50,
+      borderRadius: 25,
+  },
+  publicationUser: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingRight: 12
+
+  },
+  publicationInformation: {
+      flexDirection: 'row',
+      flex: 1,
+      marginLeft: 10,
+      paddingLeft: 10,
+  },
+  publicationUserName: {
+      paddingLeft: 10,
+  },
+  publicationDate: {
+      paddingLeft: 10,
+      color: 'gray'
+
   }
 })
