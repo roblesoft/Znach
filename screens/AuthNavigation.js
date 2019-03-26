@@ -7,9 +7,10 @@ import Notifications from './views/Notifications'
 import Meat from './views/Meat'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Categories from './views/Categories'
+import HomeFeed from './views/HomeFeed'
 
 const SignedIn = createBottomTabNavigator({
-    Home: Feed,
+    Home: HomeFeed,
     Meat: Categories,
     Notifications: Notifications,
     Profile: Profile

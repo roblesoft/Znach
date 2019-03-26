@@ -7,6 +7,18 @@ export default class Profile extends React.Component{
         super(props)
         this.state = {email: '', password: ''}
     }
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerTitle: 'Znach',
+            headerRight: (
+                <Ionicons 
+                    style={{paddingRight: 10} } 
+                    name={'ios-chatbubbles'} 
+                    size={25}
+                    onPress={()=> navigation.navigate('Messages')}/>
+            ),
+        };
+    }
     deleteSession = () => {
         const data = this.state
         axios.delete('http://polar-savannah-83006.herokuapp.com/users/sign_out', {
@@ -25,10 +37,7 @@ export default class Profile extends React.Component{
             <View style={styles.container}>
                 <View style={styles.screenContainer}>
                     <ScrollView>
-                        <View style={styles.header}>
-                            <Text style={styles.titleHeader}>Feed</Text>
-                            <Ionicons style={styles.message} name={'ios-chatbubbles'} size={25}/>
-                        </View>
+
                         <View style={styles.screenContainer}>
                             <FlatList
                                 horizontal={true}
@@ -55,6 +64,90 @@ export default class Profile extends React.Component{
                                 
                             />
                         </View>
+                        <View style={styles.publicationsContainer}>
+                            <View style={styles.publication}>
+                                <View style={styles.publicationHeader}>
+                                    <View style={styles.publicationUser}>
+                                        <Image
+                                            style={styles.avatarPublication}
+                                            source={require('../../assets/default-avatar.png')}/>
+                                            <View styles={styles.publicationInformation}>
+                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                                            </View>
+                                    </View>
+                                    <Ionicons
+                                        name={"ios-more"}
+                                        size={25}/>
+                                </View>
+                                <View style={styles.publicationBody}>
+                                    <Text>Empezando el proyecto</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.publicationsContainer}>
+                            <View style={styles.publication}>
+                                <View style={styles.publicationHeader}>
+                                    <View style={styles.publicationUser}>
+                                        <Image
+                                            style={styles.avatarPublication}
+                                            source={require('../../assets/default-avatar.png')}/>
+                                            <View styles={styles.publicationInformation}>
+                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                                            </View>
+                                    </View>
+                                    <Ionicons
+                                        name={"ios-more"}
+                                        size={25}/>
+                                </View>
+                                <View style={styles.publicationBody}>
+                                    <Text>Empezando el proyecto</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.publicationsContainer}>
+                            <View style={styles.publication}>
+                                <View style={styles.publicationHeader}>
+                                    <View style={styles.publicationUser}>
+                                        <Image
+                                            style={styles.avatarPublication}
+                                            source={require('../../assets/default-avatar.png')}/>
+                                            <View styles={styles.publicationInformation}>
+                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                                            </View>
+                                    </View>
+                                    <Ionicons
+                                        name={"ios-more"}
+                                        size={25}/>
+                                </View>
+                                <View style={styles.publicationBody}>
+                                    <Text>Epezando el proyecto</Text>
+                                </View>
+                            </View>
+                        </View>
+                        <View style={styles.publicationsContainer}>
+                            <View style={styles.publication}>
+                                <View style={styles.publicationHeader}>
+                                    <View style={styles.publicationUser}>
+                                        <Image
+                                            style={styles.avatarPublication}
+                                            source={require('../../assets/default-avatar.png')}/>
+                                            <View styles={styles.publicationInformation}>
+                                                <Text style={styles.publicationUserName}>Steph Sailsburi</Text>
+                                                <Text style={styles.publicationDate}>marzo, 19</Text>
+                                            </View>
+                                    </View>
+                                    <Ionicons
+                                        name={"ios-more"}
+                                        size={25}/>
+                                </View>
+                                <View style={styles.publicationBody}>
+                                    <Text>Prueba</Text>
+                                </View>
+                            </View>
+                        </View>
                     </ScrollView>
                 </View>
             </View>
@@ -64,9 +157,6 @@ export default class Profile extends React.Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    screenContainer: {
-        flex: .9
     },
     titleHeader: {
         fontSize: 35,
@@ -80,8 +170,6 @@ const styles = StyleSheet.create({
         paddingLeft: 15,
         paddingRight: 15,
         backgroundColor: '#fff529',
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
     },
     message: {
         paddingTop: 40,
@@ -124,6 +212,63 @@ const styles = StyleSheet.create({
       marginRight: 20
     },
     name: {
-    }
+    },
+  publication: {
+      borderWidth: 1,
+      borderColor: '#d0dbe5',
+      paddingLeft: 8,
+      paddingRight: 8,
+      paddingTop: 10,
+      width: '100%',
+      borderRadius: 20,
+      backgroundColor: 'white',
+      shadowColor: 'gray',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.4,
+      shadowRadius: 8,
+  },
+  publicationsContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingRight: 10,
+      paddingLeft: 10,
+      paddingTop: 10,
+  },
+  publicationBody: {
+      marginBottom: 20,
+      paddingLeft: 60
+
+  },
+  publicationHeader:{
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between'
+
+  },
+  avatarPublication: {
+      height: 50,
+      width: 50,
+      borderRadius: 25,
+  },
+  publicationUser: {
+      flex: 1,
+      flexDirection: 'row',
+      paddingRight: 12
+
+  },
+  publicationInformation: {
+      flexDirection: 'row',
+      flex: 1,
+      marginLeft: 10,
+      paddingLeft: 10,
+  },
+  publicationUserName: {
+      paddingLeft: 10,
+  },
+  publicationDate: {
+      paddingLeft: 10,
+      color: 'gray'
+
+  }
     
 })

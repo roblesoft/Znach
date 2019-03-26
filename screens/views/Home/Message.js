@@ -1,12 +1,25 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
-import MenuBar from './MenuBar'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 export default class Message extends React.Component{
     constructor(props){
         super(props)
 
     }
+    static navigationOptions = ({ navigation }) => {
+        return {
+            headerTitle: 'Mesajes',
+            headerRight: (
+                <Ionicons 
+                    style={{paddingRight: 10} } 
+                    name={'ios-create'} 
+                    size={25}
+                    onPress={()=> navigation.navigate('Messages')}/>
+            ),
+        };
+    }
+    
     render(){
         return(
             <View styles={styles.container}>

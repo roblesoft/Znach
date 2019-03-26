@@ -87,9 +87,7 @@ export default class Meat extends React.Component{
                                 </View>
                                 <View style={styles.publicationBody}>
                                     <Text>Empezando el proyecto</Text>
-
                                 </View>
-
                             </View>
                         </View>
                     </ScrollView>
