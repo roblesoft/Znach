@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import AddButton from './AddButton'
 export default class Profile extends React.Component{
     constructor(props){
         super(props)
@@ -149,6 +150,13 @@ export default class Profile extends React.Component{
                             </View>
                         </View>
                     </ScrollView>
+            <View style={styles.Buttoncontainer}>
+                <TouchableOpacity 
+                    style={styles.button}
+                    onPress={ () => this.props.navigation.navigate('NuevaPublicacion')}>
+                    <Text style={styles.Buttontext}>+</Text>
+                </TouchableOpacity>
+            </View>
                 </View>
             </View>
         );
@@ -269,6 +277,42 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       color: 'gray'
 
-  }
+  },
+    Buttoncontainer: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+    },
+    button: {
+        flex: 1,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        backgroundColor: '#00ADB5',
+        alignItems: 'center',
+        position: 'absolute',
+        borderRadius: 25,
+        height: 50,
+        width: 50,
+        marginBottom: 20,
+        marginRight: 20,
+        right: 1,
+        bottom: 1,
+        shadowColor: 'gray',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 1,
+        shadowRadius: 2,
+
+    },
+    Buttontext: {
+        color: 'white',
+        fontSize: 30,
+        fontWeight: '200'
+    },
+    block: {
+        height: 20,
+        backgroundColor: 'blue'
+
+    }
     
 })

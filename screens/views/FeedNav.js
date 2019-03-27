@@ -3,6 +3,7 @@ import {createStackNavigator, createAppContainer} from 'react-navigation'
 
 import Feed from './feed'
 import Message from './Home/Message';
+import NuevaPublicacion from './Home/NuevaPublicacion';
 
 const FeedNavigation = createStackNavigator(
     {
@@ -14,6 +15,10 @@ const FeedNavigation = createStackNavigator(
         },
         Messages: {
             screen: Message
+        },
+
+        NuevaPublicacion: {
+            screen: NuevaPublicacion
         }
     },
     {
