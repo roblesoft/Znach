@@ -7,6 +7,16 @@ export default class Profile extends React.Component{
     constructor(props){
         super(props)
         this.state = {email: '', password: ''}
+        this.path = "http://polar-savannah-83006.herokuapp.com/"
+        axios.get(this.path + 'publications/')
+        .then( response => {
+            console.log(response.data)
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
     }
     static navigationOptions = ({ navigation }) => {
         return {
@@ -22,7 +32,7 @@ export default class Profile extends React.Component{
     }
     deleteSession = () => {
         const data = this.state
-        axios.delete('http://polar-savannah-83006.herokuapp.com/users/sign_out', {
+        axios.delete(this.path + 'users/sign_out', {
         user: {email: data.email, password: data.password}} )
         .then( response => {
             this.props.navigation.navigate('Profile', {email: this.state.email})
