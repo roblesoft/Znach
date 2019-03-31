@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage } from 'react-native';
 export default class App extends React.Component {    
   constructor(props){
     super(props)
@@ -15,13 +15,24 @@ export default class App extends React.Component {
       user: {email: data.email, password: data.password}} )
       .then( response => {
         console.log(response.data)
-        this.props.navigation.navigate('SignedIn', {email: this.state.email, res: response.data})
+        this.props.navigation.navigate('SignedIn')
+        this._storeData(response.data.email)
 
       })
       .catch(error  => {
         console.log(error)
     })
   }
+
+  _storeData = async (user_id, user_name) => {
+    try{
+      await AsyncStorage.setItem('user_id', user_id)
+      await AsyncStorage.setItem('user_name', user_name)
+    }catch(error){
+      console.error(error)
+    }
+  }
+
   render() {
     return (
       <ScrollView>

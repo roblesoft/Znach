@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList, TouchableOpacity, AsyncStorage } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import AddButton from './AddButton'
 export default class Profile extends React.Component{
@@ -8,9 +8,11 @@ export default class Profile extends React.Component{
         super(props)
         this.state = {email: '', password: ''}
         this.path = "http://polar-savannah-83006.herokuapp.com/"
+        this.list = []
         axios.get(this.path + 'publications/')
         .then( response => {
-            console.log(response.data)
+            //console.log(response.data)
+            this.list = response.data
 
         })
         .catch(error => {
@@ -30,6 +32,18 @@ export default class Profile extends React.Component{
             ),
         };
     }
+    _retrieveData = async () => {
+        try{
+            const user_id = await AsyncStorage.getItem('user_id')
+            const user_name = await AsyncStorage.getItem('user_name')
+            if(user_id !== null){
+                console.log(value)
+                return {user_id, user_name}
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
     deleteSession = () => {
         const data = this.state
         axios.delete(this.path + 'users/sign_out', {
@@ -42,13 +56,26 @@ export default class Profile extends React.Component{
             console.log(error)
         })
     }
+    //FIREBASE.GETINSTANCE.().aCTIVITY."MATRICULO".CUBI.ENTRADA.SET
 
     render(){
+        const {user_id, user_name} = this._retrieveData()
+        const { navigate } = this.props.navigation
+        axios.get(this.path + 'publications/')
+        .then( response => {
+            //console.log(response.data)
+            this.list = response.data.reverse()
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+
         return(
             <View style={styles.container}>
                 <View style={styles.screenContainer}>
                     <ScrollView>
-
                         <View style={styles.screenContainer}>
                             <FlatList
                                 horizontal={true}
@@ -75,90 +102,31 @@ export default class Profile extends React.Component{
                                 
                             />
                         </View>
-                        <View style={styles.publicationsContainer}>
-                            <View style={styles.publication}>
-                                <View style={styles.publicationHeader}>
-                                    <View style={styles.publicationUser}>
-                                        <Image
-                                            style={styles.avatarPublication}
-                                            source={require('../../assets/default-avatar.png')}/>
-                                            <View styles={styles.publicationInformation}>
-                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
-                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                        <FlatList 
+                            data={this.list}
+                            renderItem={({item}) => 
+                                <View style={styles.publicationsContainer}>
+                                        <View style={styles.publication}>
+                                            <View style={styles.publicationHeader}>
+                                                <View style={styles.publicationUser}>
+                                                    <Image
+                                                        style={styles.avatarPublication}
+                                                        source={require('../../assets/default-avatar.png')}/>
+                                                        <View styles={styles.publicationInformation}>
+                                                            <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                            <Text style={styles.publicationDate}>{item.created_at.substr(0,10)}</Text>
+                                                        </View>
+                                                </View>
+                                                <Ionicons
+                                                    name={"ios-more"}
+                                                    size={25}/>
                                             </View>
-                                    </View>
-                                    <Ionicons
-                                        name={"ios-more"}
-                                        size={25}/>
-                                </View>
-                                <View style={styles.publicationBody}>
-                                    <Text>Empezando el proyecto</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.publicationsContainer}>
-                            <View style={styles.publication}>
-                                <View style={styles.publicationHeader}>
-                                    <View style={styles.publicationUser}>
-                                        <Image
-                                            style={styles.avatarPublication}
-                                            source={require('../../assets/default-avatar.png')}/>
-                                            <View styles={styles.publicationInformation}>
-                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
-                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                                            <View style={styles.publicationBody}>
+                                                <Text>{item.text}</Text>
                                             </View>
+                                        </View>
                                     </View>
-                                    <Ionicons
-                                        name={"ios-more"}
-                                        size={25}/>
-                                </View>
-                                <View style={styles.publicationBody}>
-                                    <Text>Empezando el proyecto</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.publicationsContainer}>
-                            <View style={styles.publication}>
-                                <View style={styles.publicationHeader}>
-                                    <View style={styles.publicationUser}>
-                                        <Image
-                                            style={styles.avatarPublication}
-                                            source={require('../../assets/default-avatar.png')}/>
-                                            <View styles={styles.publicationInformation}>
-                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
-                                                <Text style={styles.publicationDate}>marzo, 24</Text>
-                                            </View>
-                                    </View>
-                                    <Ionicons
-                                        name={"ios-more"}
-                                        size={25}/>
-                                </View>
-                                <View style={styles.publicationBody}>
-                                    <Text>Epezando el proyecto</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <View style={styles.publicationsContainer}>
-                            <View style={styles.publication}>
-                                <View style={styles.publicationHeader}>
-                                    <View style={styles.publicationUser}>
-                                        <Image
-                                            style={styles.avatarPublication}
-                                            source={require('../../assets/default-avatar.png')}/>
-                                            <View styles={styles.publicationInformation}>
-                                                <Text style={styles.publicationUserName}>Steph Sailsburi</Text>
-                                                <Text style={styles.publicationDate}>marzo, 19</Text>
-                                            </View>
-                                    </View>
-                                    <Ionicons
-                                        name={"ios-more"}
-                                        size={25}/>
-                                </View>
-                                <View style={styles.publicationBody}>
-                                    <Text>Prueba</Text>
-                                </View>
-                            </View>
-                        </View>
+                            }/>
                     </ScrollView>
             <View style={styles.Buttoncontainer}>
                 <TouchableOpacity 

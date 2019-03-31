@@ -17,12 +17,11 @@ export default class NuevaPublicacion extends React.Component{
     publicar= () => {
         axios.post(this.path + 'publications/', {text: this.state.text })
         .then(respond =>{
-            console.log(respond)
         })
         .catch(error => {
             console.log(error)
         })
-        this.props.navigation.navigate('Home')
+        this.props.navigation.navigate('Home', {text: this.state.text})
 
     }
     
