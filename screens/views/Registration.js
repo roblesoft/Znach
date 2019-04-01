@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, AsyncStorage } from 'react-native';
 
 export default class Registration extends React.Component{
     constructor(props){
@@ -9,27 +9,23 @@ export default class Registration extends React.Component{
           email: '',
           password: '',
           name: '',
-          area: '',
+          city: '',
           gen: '',
           age: ''
         }
     }
 
   buttonClicked = () => {
-    alert('restrado')
+    alert('registrado')
 
     const data = this.state
-    console.log(data)
+    //console.log(data)
     axios.post('http://polar-savannah-83006.herokuapp.com/users', {
-      user: {email: data.email, password: data.password}} )
+      user: {email: data.email, name: data.name, city: data.city, password: data.password}} )
       .then( response => {
-          this.props.navigation.navigate('Profile', {
-            email: this.state.email,
-            name: this.state.name,
-            age: this.state.age,
-            gen: this.state.gen,
-            area: this.state.area
-          })
+          console.log(`${response.data} datos del registro`)
+          this.props.navigation.navigate('Profile')
+          this._storeData(response.data.id, response.data.name)
 //          console.log(response)
 
         })
@@ -37,6 +33,14 @@ export default class Registration extends React.Component{
           console.log(error)
         })
     }
+  _storeData = async (user_id, user_name) => {
+    try{
+      await AsyncStorage.setItem('user_id', user_id)
+      await AsyncStorage.setItem('user_name', user_name)
+    }catch(error){
+      console.error(error)
+    }
+  }
     render(){
         return(
         <View style={styles.container}>
@@ -65,7 +69,7 @@ export default class Registration extends React.Component{
             <TextInput
             style={styles.input}
             placeholder="Area de especialidad"
-            onChangeText={(area) => this.setState({area})}
+            onChangeText={(city) => this.setState({city})}
             />
             <TextInput
             style={styles.input}

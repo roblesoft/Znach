@@ -15,8 +15,9 @@ export default class App extends React.Component {
       user: {email: data.email, password: data.password}} )
       .then( response => {
         console.log(response.data)
+        //console.log(`${response.data} datos del registro`)
+        this._storeData(JSON.stringify(response.data.id), response.data.name)
         this.props.navigation.navigate('SignedIn')
-        this._storeData(response.data.email)
 
       })
       .catch(error  => {

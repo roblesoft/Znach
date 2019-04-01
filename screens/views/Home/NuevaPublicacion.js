@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, TouchableOpacity, AsyncStorage } from 'react-native';
 import axios from 'axios'
 
 
 export default class NuevaPublicacion extends React.Component{
     constructor(props){
         super(props)
-        this.state = {text: ''}
+        this.state = {text: '', user_id: ''}
         this.path = "http://polar-savannah-83006.herokuapp.com/"
     }
     static navigationOptions = ({ navigation }) => {
@@ -14,8 +14,23 @@ export default class NuevaPublicacion extends React.Component{
             headerTitle: 'Publicar',
         };
     }
-    publicar= () => {
-        axios.post(this.path + 'publications/', {text: this.state.text })
+    _retrieveData = async () => {
+        try{
+            const user_id = await AsyncStorage.getItem('user_id')
+            const user_name = await AsyncStorage.getItem('user_name')
+            if(user_id !== null){
+                console.log(user_name)
+                return user_id
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
+
+    publicar = () => {
+        const user_id = this._retrieveData()
+        console.log(user_id)
+        axios.post(this.path + 'publications/', {publication: {text: this.state.text, user_id: user_id} })
         .then(respond =>{
         })
         .catch(error => {

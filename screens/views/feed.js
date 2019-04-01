@@ -37,7 +37,7 @@ export default class Profile extends React.Component{
             const user_id = await AsyncStorage.getItem('user_id')
             const user_name = await AsyncStorage.getItem('user_name')
             if(user_id !== null){
-                console.log(value)
+                console.log(user_name)
                 return {user_id, user_name}
             }
         }catch(error){
@@ -59,8 +59,7 @@ export default class Profile extends React.Component{
     //FIREBASE.GETINSTANCE.().aCTIVITY."MATRICULO".CUBI.ENTRADA.SET
 
     render(){
-        const {user_id, user_name} = this._retrieveData()
-        const { navigate } = this.props.navigation
+        const { user_id, user_name } = this._retrieveData()
         axios.get(this.path + 'publications/')
         .then( response => {
             //console.log(response.data)
@@ -76,6 +75,8 @@ export default class Profile extends React.Component{
             <View style={styles.container}>
                 <View style={styles.screenContainer}>
                     <ScrollView>
+                        <Text>{user_id}</Text>
+                        <Text>{user_name}</Text>
                         <View style={styles.screenContainer}>
                             <FlatList
                                 horizontal={true}
