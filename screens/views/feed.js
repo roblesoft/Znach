@@ -38,28 +38,30 @@ export default class Profile extends React.Component{
             const user_name = await AsyncStorage.getItem('user_name')
             if(user_id !== null){
                 console.log(user_name)
+                console.log(user_id)
                 return {user_id, user_name}
             }
         }catch(error){
             console.error(error)
         }
     }
-    deleteSession = () => {
-        const data = this.state
-        axios.delete(this.path + 'users/sign_out', {
-        user: {email: data.email, password: data.password}} )
+
+    //FIREBASE.GETINSTANCE.().aCTIVITY."MATRICULO".CUBI.ENTRADA.SET
+    componentDidMount(){
+        axios.get(this.path + 'publications/')
         .then( response => {
-            this.props.navigation.navigate('Profile', {email: this.state.email})
-            console.log(response)
+            //console.log(response.data)
+            this.list = response.data.reverse()
+            this.forceUpdate()
+
         })
-        .catch(error  => {
+        .catch(error => {
             console.log(error)
         })
     }
-    //FIREBASE.GETINSTANCE.().aCTIVITY."MATRICULO".CUBI.ENTRADA.SET
 
     render(){
-        const { user_id, user_name } = this._retrieveData()
+
         axios.get(this.path + 'publications/')
         .then( response => {
             //console.log(response.data)
@@ -69,14 +71,10 @@ export default class Profile extends React.Component{
         .catch(error => {
             console.log(error)
         })
-
-
         return(
             <View style={styles.container}>
                 <View style={styles.screenContainer}>
                     <ScrollView>
-                        <Text>{user_id}</Text>
-                        <Text>{user_name}</Text>
                         <View style={styles.screenContainer}>
                             <FlatList
                                 horizontal={true}

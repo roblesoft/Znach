@@ -45,6 +45,7 @@ export default class Registration extends React.Component{
         return(
         <View style={styles.container}>
           <ScrollView style={{zIndex: 10}}>
+
           <View style={styles.headerRegistration}>
             <Text style={styles.header}>Registrate</Text>
           </View>

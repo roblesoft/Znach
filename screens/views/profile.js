@@ -1,18 +1,63 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage, FlatList } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import axios from 'axios'
 
 export default class Meat extends React.Component{
     constructor(props){
         super(props)
-
+        this.prevState = {user_name: '', user_id: '', user_city: ''}
+        this.state = {user_name: '', user_id: '', user_city: ''}
+        this.path = "http://polar-savannah-83006.herokuapp.com/"
+        this.publications = [] 
+        this.componentInitialize()
     }
+
     buttonClicked = () => {
         this.props.navigation.navigate('SignedOut')
     }
+
+
+    async componentInitialize(){
+        try{
+            this.state.user_id = await AsyncStorage.getItem('user_id')
+            this.state.user_name = await AsyncStorage.getItem('user_name')
+
+            this.state.user_city = await AsyncStorage.getItem('user_city')
+        }catch(error){
+            console.error(error)
+        }
+        console.log(this.state.user_id)
+        axios.get(this.path + 'user_publications/index', {
+            params: {user_id: this.state.user_id}
+        })
+        .then(respond => {
+            console.log(respond.data)
+            this.publications = respond.data
+        })
+    }
+
+   async componentDidMount(){
+        try{
+            this.state.user_id = await AsyncStorage.getItem('user_id')
+            this.state.user_name = await AsyncStorage.getItem('user_name')
+            this.state.user_city = await AsyncStorage.getItem('user_city')
+        }catch(error){
+            console.error(error)
+        }
+        console.log(this.state.user_id)
+        axios.get(this.path + 'user_publications/index', {
+            params: {user_id: this.state.user_id}
+        })
+        .then(respond => {
+            console.log(respond.data)
+            this.publications = respond.data
+            this.forceUpdate()
+        })
+        this.forceUpdate()
+    }
     render(){
-        const { navigation } = this.props
-        const name = navigation.getParam('email', 'default')
+        console.log("render")
         return(
             <View styles={styles.container}>
                     <ScrollView style={{backgroundColor: '#f6f8fa'}}>
@@ -36,7 +81,11 @@ export default class Meat extends React.Component{
                             </View>
                         </View>
                         <View style={styles.userNameContainer}>
-                            <Text style={styles.userName}>Uriel Robles</Text>
+                            <Text style={styles.userName}>{this.state.user_name}</Text>
+                        </View>
+                        <View style={styles.userCityContainer}>
+                            <Ionicons name={"ios-pin"} size={14}/>
+                            <Text style={styles.userCity}>{this.state.user_city}</Text>
                         </View>
                         <View style={styles.skillsContainer}>
                             <View style={styles.skill}>
@@ -69,27 +118,31 @@ export default class Meat extends React.Component{
                                 </View>
                             </View>
                         </View>
-                        <View style={styles.publicationsContainer}>
-                            <View style={styles.publication}>
-                                <View style={styles.publicationHeader}>
-                                    <View style={styles.publicationUser}>
-                                        <Image
-                                            style={styles.avatarPublication}
-                                            source={require('../../assets/default-avatar.png')}/>
-                                            <View styles={styles.publicationInformation}>
-                                                <Text style={styles.publicationUserName}>Uriel Robles</Text>
-                                                <Text style={styles.publicationDate}>marzo, 24</Text>
+                        <FlatList 
+                            data={this.publications}
+                            renderItem={({item}) => 
+                                <View style={styles.publicationsContainer}>
+                                        <View style={styles.publication}>
+                                            <View style={styles.publicationHeader}>
+                                                <View style={styles.publicationUser}>
+                                                    <Image
+                                                        style={styles.avatarPublication}
+                                                        source={require('../../assets/default-avatar.png')}/>
+                                                        <View styles={styles.publicationInformation}>
+                                                            <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                            <Text style={styles.publicationDate}>{item.created_at.substr(0,10)}</Text>
+                                                        </View>
+                                                </View>
+                                                <Ionicons
+                                                    name={"ios-more"}
+                                                    size={25}/>
                                             </View>
+                                            <View style={styles.publicationBody}>
+                                                <Text>{item.text}</Text>
+                                            </View>
+                                        </View>
                                     </View>
-                                    <Ionicons
-                                        name={"ios-more"}
-                                        size={25}/>
-                                </View>
-                                <View style={styles.publicationBody}>
-                                    <Text>Empezando el proyecto</Text>
-                                </View>
-                            </View>
-                        </View>
+                            }/>
                     </ScrollView>
             </View>
         );
@@ -281,5 +334,14 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       color: 'gray'
 
+  },
+  userCityContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'center',
+  },
+  userCity: {
+
+    color: 'gray'
   }
 })

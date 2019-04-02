@@ -18,8 +18,9 @@ export default class NuevaPublicacion extends React.Component{
         try{
             const user_id = await AsyncStorage.getItem('user_id')
             const user_name = await AsyncStorage.getItem('user_name')
-            if(user_id !== null){
-                console.log(user_name)
+            if(user_name !== null){
+                //console.log(user_name)
+                //console.log(`${user_id} id usuario`)
                 return user_id
             }
         }catch(error){
@@ -27,11 +28,14 @@ export default class NuevaPublicacion extends React.Component{
         }
     }
 
-    publicar = () => {
-        const user_id = this._retrieveData()
-        console.log(user_id)
-        axios.post(this.path + 'publications/', {publication: {text: this.state.text, user_id: user_id} })
+    publicar = async () => {
+        this.state.user_id = await this._retrieveData()
+        //console.log(this.state.user_id)
+        //console.log(`${this.state.user_id} id usuario publicacion`)
+        axios.post(this.path + 'publications/', {publication: {text: this.state.text, user_id: this.state.user_id} })
         .then(respond =>{
+            //console.log(respond)
+
         })
         .catch(error => {
             console.log(error)

@@ -16,7 +16,7 @@ export default class App extends React.Component {
       .then( response => {
         console.log(response.data)
         //console.log(`${response.data} datos del registro`)
-        this._storeData(JSON.stringify(response.data.id), response.data.name)
+        this._storeData(JSON.stringify(response.data.id), response.data.name, response.data.city)
         this.props.navigation.navigate('SignedIn')
 
       })
@@ -25,10 +25,11 @@ export default class App extends React.Component {
     })
   }
 
-  _storeData = async (user_id, user_name) => {
+  _storeData = async (user_id, user_name, user_city) => {
     try{
       await AsyncStorage.setItem('user_id', user_id)
       await AsyncStorage.setItem('user_name', user_name)
+      await AsyncStorage.setItem('user_city', user_city)
     }catch(error){
       console.error(error)
     }
