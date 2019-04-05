@@ -1,17 +1,31 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList } from 'react-native';
+import axios from 'axios'
 
 export default class Tecnologic extends React.Component{
     constructor(props){
         super(props)
+        this.path = "http://polar-savannah-83006.herokuapp.com/"
+        this.list = []
+        this.categorie = this.props.navigation.state.params.categorie
+        axios.get(`${this.path}user_publications/categories/`, {
+            params: {categorie: this.categorie}
+        })
+        .then(response => {
+            console.log(response.data)
+            this.list = response.data
+
+        })
+        .catch(error => {
+            console.error(error)
+        })
     }
     static navigationOptions = {
-        title: 'Tecnologia'
+        title: this.categorie
     }
     render(){
         return(
             <View>
-                <Text>Tecnologia</Text>
 
             </View>            
         );

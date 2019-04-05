@@ -43,19 +43,19 @@ const SignedIn = createBottomTabNavigator({
                     iconColor = focused ? '#00ADB5' : '#cccccc'
                 }
             }
-            return <IconComponent name={iconName} size={25} color={iconColor}/>;
+            return <IconComponent name={iconName} size={30} color={iconColor}/>;
         },
         tabBarLabel: ({focused, tintcolor}) => {
             const { routeName } = navigation.state;
             switch(routeName){
                 case 'Home': 
-                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
+                    return null
                 case 'Meat':
-                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
+                    return null
                 case 'Notifications':
-                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
+                    return null
                 case 'Profile':
-                    return focused ? <Text style={styles.labelColorFocus}>{routeName}</Text> : null
+                    return null
             }
         }
     }),

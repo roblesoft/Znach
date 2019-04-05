@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, AsyncStorage, Picker } from 'react-native';
 
 export default class Registration extends React.Component{
     constructor(props){
@@ -11,7 +11,8 @@ export default class Registration extends React.Component{
           name: '',
           city: '',
           gen: '',
-          age: ''
+          age: '',
+          specialty: ''
         }
     }
 
@@ -21,22 +22,31 @@ export default class Registration extends React.Component{
     const data = this.state
     //console.log(data)
     axios.post('http://polar-savannah-83006.herokuapp.com/users', {
-      user: {email: data.email, name: data.name, city: data.city, password: data.password}} )
+      user: {
+        email: data.email, 
+        name: data.name, 
+        city: data.city, 
+        specialty: data.specialty, 
+        age: data.age, 
+        gender: data.gen, 
+        password: data.password}} )
       .then( response => {
-          console.log(`${response.data} datos del registro`)
+          console.log(response.data)
+          console.log("respuesta de registro")
           this.props.navigation.navigate('Profile')
-          this._storeData(response.data.id, response.data.name)
-//          console.log(response)
+          this._storeData(JSON.stringify(response.data.id), response.data.name, response.data.city)
+
 
         })
         .catch(error  => {
           console.log(error)
         })
     }
-  _storeData = async (user_id, user_name) => {
+  _storeData = async (user_id, user_name, user_city) => {
     try{
       await AsyncStorage.setItem('user_id', user_id)
       await AsyncStorage.setItem('user_name', user_name)
+      await AsyncStorage.setItem('user_city', user_city)
     }catch(error){
       console.error(error)
     }
@@ -69,9 +79,27 @@ export default class Registration extends React.Component{
             </View>
             <TextInput
             style={styles.input}
-            placeholder="Area de especialidad"
+            placeholder="Ciudad"
             onChangeText={(city) => this.setState({city})}
             />
+
+            <View style={{backgroundColor: "#ebebeb", borderRadius: 100, marginBottom: 15}}>
+
+              <Picker 
+                selectedValue={this.state.specialty}
+                style={{height: 45, width: 260}}
+                onValueChange={(itemValue, itemIndex) =>
+                  this.setState({specialty: itemValue})
+                }
+              >
+              <Picker.Item label="Diseno" value="Diseño" />
+              <Picker.Item label="Tecnologia" value="Tecnologia" />
+              <Picker.Item label="Negocios" value="Negocios" />
+              <Picker.Item label="Ciencias" value="Ciencias" />
+              <Picker.Item label="Administracion" value="Administracion" />
+
+              </Picker>
+            </View>
             <TextInput
             style={styles.input}
             placeholder="Email"

@@ -16,35 +16,35 @@ export default class Meat extends React.Component{
                         <View style={styles.categoriesContainer}>
                             <TouchableOpacity 
                                 style={[styles.categorie, {backgroundColor: '#8a29ff'}]}
-                                onPress={() => this.props.navigation.navigate('Design')}>
+                                onPress={() => this.props.navigation.navigate('Tecnologic', {categorie: "Diseño"})}>
                                 <Text style={styles.categoriesText}>Diseño</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
                             <TouchableOpacity 
                                 style={[styles.categorie, {backgroundColor: '#299eff'}]}
-                                onPress={() => this.props.navigation.navigate('Tecnologic')}>
+                                onPress={() => this.props.navigation.navigate('Tecnologic', {categorie: "Tecnologia"})}>
                                 <Text style={styles.categoriesText}>Tecnología</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
                             <TouchableOpacity 
                                 style={[styles.categorie, {backgroundColor: '#86f500'}]}
-                                onPress={() => this.props.navigation.navigate('Bussines')}>
+                                onPress={() => this.props.navigation.navigate('Tecnologic', {categorie: "Negocios"})}>
                                 <Text style={styles.categoriesText}>Negocios</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
                             <TouchableOpacity 
                                 style={[styles.categorie, {backgroundColor: '#ff8a29'}]}
-                                onPress={() => this.props.navigation.navigate('Science')}>
+                                onPress={() => this.props.navigation.navigate('Tecnologic', {categorie: "Ciencias"})}>
                                 <Text style={styles.categoriesText}>Ciencias</Text>
                             </TouchableOpacity>
                         </View>
                         <View style={styles.categoriesContainer}>
                             <TouchableOpacity 
                                 style={[styles.categorie, {backgroundColor: '#2933ff'}]}
-                                onPress={() => this.props.navigation.navigate('Administration')}>
+                                onPress={() => this.props.navigation.navigate('Tecnologic', {categorie: "Adminsitracion"})}>
                                 <Text style={styles.categoriesText}>Administración</Text>
                             </TouchableOpacity>
                         </View>

@@ -47,6 +47,8 @@ export default class Meat extends React.Component{
         }
         console.log(this.state.user_id)
         axios.get(this.path + 'user_publications/index', {
+
+
             params: {user_id: this.state.user_id}
         })
         .then(respond => {

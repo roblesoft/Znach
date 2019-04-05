@@ -9,7 +9,10 @@ import Administration from './categories/Administration'
 const categoriesNavigation = createStackNavigator(
     {
         Home: {
-            screen: Meat
+            screen: Meat,
+            navigationOptions: () => ({
+                headerBackTitle: null,
+            })
         },
         Design: {
             screen: Design
