@@ -1,33 +1,28 @@
-
 import {createStackNavigator, createAppContainer} from 'react-navigation'
 
 import Feed from './feed'
-import Message from './Home/Message';
-import NuevaPublicacion from './Home/NuevaPublicacion';
+import Profile from './Profile/Profile'
+import AddSkill from './Profile/AddSkill'
 
 export default createStackNavigator(
     {
         Home: {
-            screen: Feed,
+            screen: Profile,
             navigationOptions: () => ({
                 headerBackTitle: null,
             })
         },
-        Messages: {
-            screen: Message
-        },
-
-        NuevaPublicacion: {
-            screen: NuevaPublicacion
+        AddSkill: {
+            screen: AddSkill
         }
     },
     {
         defaultNavigationOptions: {
             headerStyle: {
-                backgroundColor: '#fff529',
+                backgroundColor: '#8a29ff',
                 height: 60
             },
-            headerTintColor: '#000',
+            headerTintColor: '#FFF',
             headerTitleStyle: {
                 fontWeight: 'bold',
                 fontSize: 25
@@ -35,4 +30,5 @@ export default createStackNavigator(
         },
     }
 );
+
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage, FlatList } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage, FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
@@ -10,11 +10,21 @@ export default class Meat extends React.Component{
         this.state = {user_name: '', user_id: '', user_city: ''}
         this.path = "http://polar-savannah-83006.herokuapp.com/"
         this.publications = [] 
+        this.skills = []
         this.componentInitialize()
+    }
+
+    static navigationOptions = {
+        header: null
     }
 
     buttonClicked = () => {
         this.props.navigation.navigate('SignedOut')
+    }
+
+
+    AddSkill = () => {
+        this.props.navigation.navigate('AddSkill')
     }
 
 
@@ -46,15 +56,27 @@ export default class Meat extends React.Component{
             console.error(error)
         }
         console.log(this.state.user_id)
+        //peticion de publicaciones del usuario
         axios.get(this.path + 'user_publications/index', {
-
-
             params: {user_id: this.state.user_id}
         })
         .then(respond => {
             console.log(respond.data)
             this.publications = respond.data
             this.forceUpdate()
+        })
+        //peticion de habilidades del usuario
+        axios.get(this.path + 'user_publications/skills', {
+            params: {user_id: this.state.user_id}
+        })
+        .then(respond => {
+            console.log(respond.status)
+            console.log(respond.data)
+            this.skills = respond.data
+            this.forceUpdate()
+        })
+        .catch(error => {
+            console.error(error)
         })
         this.forceUpdate()
     }
@@ -79,7 +101,7 @@ export default class Meat extends React.Component{
                             <View style={styles.avatarContainer}>
                                 <Image
                                     style={styles.avatar}
-                                    source={require('../../assets/default-avatar.png')}/>
+                                    source={require('../../../assets/default-avatar.png')}/>
                             </View>
                         </View>
                         <View style={styles.userNameContainer}>
@@ -90,9 +112,19 @@ export default class Meat extends React.Component{
                             <Text style={styles.userCity}>{this.state.user_city}</Text>
                         </View>
                         <View style={styles.skillsContainer}>
-                            <View style={styles.skill}>
-                                <Text style={styles.skillText}>Programador</Text>
-                            </View>
+                            <FlatList
+                                data={this.skills}
+                                horizontal={true}
+                                renderItem={
+                                    ({item}) => 
+                                    <View style={styles.skill}>
+                                        <Text style={styles.skillText}>{item.name}</Text>
+                                    </View>
+                                }
+                            />
+                            <TouchableOpacity style={[{fontSize: 30}, styles.skill, ]} onPress={this.AddSkill}>
+                                <Text style={styles.skillText}>+</Text>
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.statisticsSection}>
                             <View style={styles.static}>
@@ -129,7 +161,7 @@ export default class Meat extends React.Component{
                                                 <View style={styles.publicationUser}>
                                                     <Image
                                                         style={styles.avatarPublication}
-                                                        source={require('../../assets/default-avatar.png')}/>
+                                                        source={require('../../../assets/default-avatar.png')}/>
                                                         <View styles={styles.publicationInformation}>
                                                             <Text style={styles.publicationUserName}>Uriel Robles</Text>
                                                             <Text style={styles.publicationDate}>{item.created_at.substr(0,10)}</Text>
@@ -153,7 +185,9 @@ export default class Meat extends React.Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#e6ebf1'
+        backgroundColor: '#e6ebf1',
+        paddingBottom: 20,
+        marginBottom: 20
     },
     screenContainer: {
         flex: .9
@@ -239,6 +273,7 @@ const styles = StyleSheet.create({
 
   },
   skillsContainer: {
+      marginHorizontal: 10,
       marginTop: 10,
       flex: 1,
       flexDirection: 'row',
@@ -254,6 +289,7 @@ const styles = StyleSheet.create({
       borderBottomRightRadius: 15,
       borderTopLeftRadius: 15,
       borderTopRightRadius: 15,
+      marginRight: 5
   },
   skillText: {
       fontSize: 13,

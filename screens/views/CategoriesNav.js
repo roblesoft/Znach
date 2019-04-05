@@ -6,7 +6,7 @@ import Bussines from './categories/Bussines'
 import Science from './categories/Science'
 import Administration from './categories/Administration'
 
-const categoriesNavigation = createStackNavigator(
+export default createStackNavigator(
     {
         Home: {
             screen: Meat,
@@ -44,5 +44,3 @@ const categoriesNavigation = createStackNavigator(
         },
     }
 );
-
-export default createAppContainer(categoriesNavigation)
