@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList, TouchableOpacity, AsyncStorage } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import AddButton from './AddButton'
 export default class Profile extends React.Component{
     constructor(props){
         super(props)

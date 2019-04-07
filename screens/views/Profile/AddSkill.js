@@ -32,7 +32,7 @@ export default class AddSkill extends React.Component{
     }
 
     publicar = async () => {
-        alert("j")
+        alert("Publicado")
         this.state.user_id = await this._retrieveData()
         //console.log(this.state.user_id)
         //console.log(`${this.state.user_id} id usuario publicacion`)

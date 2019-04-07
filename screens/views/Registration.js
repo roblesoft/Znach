@@ -33,8 +33,8 @@ export default class Registration extends React.Component{
       .then( response => {
           console.log(response.data)
           console.log("respuesta de registro")
-          this.props.navigation.navigate('Profile')
           this._storeData(JSON.stringify(response.data.id), response.data.name, response.data.city)
+          this.props.navigation.navigate('Profile')
 
 
         })

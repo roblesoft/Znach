@@ -1,11 +1,43 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage } from 'react-native';
+import axios from 'axios'
 
 export default class Notifications extends React.Component{
     constructor(props){
         super(props)
+        this.state = {invitations: [], user_id: ''}
+        this.path = "http://polar-savannah-83006.herokuapp.com/"
 
     }
+    _retrieveData = async () => {
+        try{
+            const user_id = await AsyncStorage.getItem('user_id')
+            const user_name = await AsyncStorage.getItem('user_name')
+            if(user_name !== null){
+                //console.log(user_name)
+                //console.log(`${user_id} id usuario`)
+                return user_id
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
+    async componentDidMount(){
+        this.setState({user_id: await this._retrieveData()}) 
+        axios.get(this.path + 'user_publications/invitations/', {
+            params: {
+                user_id: this.state.user_id
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            this.setState({invitations: response.data})
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
+
     render(){
         return(
             <View styles={styles.container}>
