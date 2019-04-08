@@ -277,6 +277,7 @@ const styles = StyleSheet.create({
       marginTop: 10,
       flex: 1,
       flexDirection: 'row',
+      alignItems: 'center',
       justifyContent: 'center',
   },
   skill: {

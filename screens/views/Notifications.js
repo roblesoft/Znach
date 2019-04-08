@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, AsyncStorage, FlatList } from 'react-native';
 import axios from 'axios'
 
 export default class Notifications extends React.Component{
@@ -22,6 +22,23 @@ export default class Notifications extends React.Component{
             console.error(error)
         }
     }
+
+    acceptInvitation(invitation_id){
+        alert(invitation_id)
+        axios.put(this.path + 'invitations/' + invitation_id , 
+        {
+            invitation: {accepted: true}
+        })
+        .then(response => {
+            console.log(response.status)
+            console.log(response.data)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+        
+    }
+
     async componentDidMount(){
         this.setState({user_id: await this._retrieveData()}) 
         axios.get(this.path + 'user_publications/invitations/', {
@@ -45,6 +62,15 @@ export default class Notifications extends React.Component{
                     <View style={styles.header}>
                         <Text style={styles.titleHeader}>Notificaciones</Text>
                     </View>
+                    <FlatList
+                        data={this.state.invitations}
+                        renderItem={({item}) => 
+                        <View>
+                            <Text>{item.host.name}</Text>
+                            <Text onPress={() => this.acceptInvitation(item.id)}>Aceptar</Text>
+                        </View>
+                    }
+                    />
                 </ScrollView>
             </View>
         );

@@ -43,7 +43,8 @@ export default class Tecnologic extends React.Component{
                 host_id: this.state.user_id, 
                 invited_id: invited_id,
                 accepted: false
-            }
+            },
+            xsrfHeaderName: 'X-XSRF-TOKEN'
         })
         .then(response => {
             console.log(response.status)
