@@ -18,7 +18,9 @@ export default class App extends React.Component {
         console.log("respuesta")
         //console.log(`${response.data} datos del registro`)
         this._storeData(JSON.stringify(response.data.id), response.data.name, response.data.city)
-        this.props.navigation.navigate('SignedIn')
+        if(response.status == 200){
+          this.props.navigation.navigate('SignedIn')
+        }
 
       })
       .catch(error  => {

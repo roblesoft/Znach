@@ -1,17 +1,26 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, AsyncStorage, FlatList, TouchableOpacity } from 'react-native';
+import { StyleSheet,
+         Text, 
+         View, 
+         Image, 
+         ScrollView, 
+         AsyncStorage, 
+         FlatList, 
+         TouchableOpacity,
+         RefreshControl } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
 export default class Meat extends React.Component{
     constructor(props){
         super(props)
-        this.prevState = {user_name: '', user_id: '', user_city: ''}
-        this.state = {user_name: '', user_id: '', user_city: ''}
+        this.state = {user_name: '',
+                     user_id: '', 
+                     user_city: '', 
+                     publications: [], 
+                     skills: [],
+                     refreshing: false}
         this.path = "http://polar-savannah-83006.herokuapp.com/"
-        this.publications = [] 
-        this.skills = []
-        this.componentInitialize()
     }
 
     static navigationOptions = {
@@ -25,26 +34,6 @@ export default class Meat extends React.Component{
 
     AddSkill = () => {
         this.props.navigation.navigate('AddSkill')
-    }
-
-
-    async componentInitialize(){
-        try{
-            this.state.user_id = await AsyncStorage.getItem('user_id')
-            this.state.user_name = await AsyncStorage.getItem('user_name')
-
-            this.state.user_city = await AsyncStorage.getItem('user_city')
-        }catch(error){
-            console.error(error)
-        }
-        console.log(this.state.user_id)
-        axios.get(this.path + 'user_publications/index', {
-            params: {user_id: this.state.user_id}
-        })
-        .then(respond => {
-            console.log(respond.data)
-            this.publications = respond.data
-        })
     }
 
    async componentDidMount(){
@@ -62,9 +51,9 @@ export default class Meat extends React.Component{
         })
         .then(respond => {
             console.log(respond.data)
-            this.publications = respond.data
-            this.forceUpdate()
+            this.setState({publications: respond.data})
         })
+
         //peticion de habilidades del usuario
         axios.get(this.path + 'user_publications/skills', {
             params: {user_id: this.state.user_id}
@@ -72,19 +61,51 @@ export default class Meat extends React.Component{
         .then(respond => {
             console.log(respond.status)
             console.log(respond.data)
-            this.skills = respond.data
-            this.forceUpdate()
+            this.setState({skills: respond.data})
         })
         .catch(error => {
             console.error(error)
         })
-        this.forceUpdate()
     }
+
+    _onRefresh = () => {
+        this.setState({refreshing: true})
+        axios.get(this.path + 'user_publications/index', {
+            params: {user_id: this.state.user_id}
+        })
+        .then(respond => {
+            console.log(respond.data)
+            this.setState({publications: respond.data})
+            this.setState({refreshing: false})
+        })
+
+        //peticion de habilidades del usuario
+        axios.get(this.path + 'user_publications/skills', {
+            params: {user_id: this.state.user_id}
+        })
+        .then(respond => {
+            console.log(respond.status)
+            console.log(respond.data)
+            this.setState({skills: respond.data})
+            this.setState({refreshing: false})
+        })
+        .catch(error => {
+            console.error(error)
+        })
+    }
+
     render(){
-        console.log("render")
         return(
             <View styles={styles.container}>
-                    <ScrollView style={{backgroundColor: '#f6f8fa'}}>
+                    <ScrollView 
+                        style={{backgroundColor: '#f6f8fa'}}
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this._onRefresh}
+                            />
+                        }>
+
                         <View style={styles.header}>
                             <View style={styles.logOut}>
                                 <Ionicons 
@@ -113,7 +134,7 @@ export default class Meat extends React.Component{
                         </View>
                         <View style={styles.skillsContainer}>
                             <FlatList
-                                data={this.skills}
+                                data={this.state.skills}
                                 horizontal={true}
                                 renderItem={
                                     ({item}) => 
@@ -153,7 +174,7 @@ export default class Meat extends React.Component{
                             </View>
                         </View>
                         <FlatList 
-                            data={this.publications}
+                            data={this.state.publications}
                             renderItem={({item}) => 
                                 <View style={styles.publicationsContainer}>
                                         <View style={styles.publication}>

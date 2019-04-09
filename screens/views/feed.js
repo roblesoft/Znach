@@ -1,23 +1,22 @@
 import React from 'react';
 import axios from 'axios'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList, TouchableOpacity, AsyncStorage } from 'react-native';
+import { StyleSheet, 
+         Text, 
+         View, 
+         Image, 
+         ScrollView, 
+         FlatList, 
+         TouchableOpacity, 
+         AsyncStorage,
+         RefreshControl } from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons'
 export default class Profile extends React.Component{
     constructor(props){
         super(props)
-        this.state = {email: '', password: ''}
+        this.state = {list: [],
+                     refreshing: false}
         this.path = "http://polar-savannah-83006.herokuapp.com/"
-        this.list = []
-        axios.get(this.path + 'publications/')
-        .then( response => {
-            //console.log(response.data)
-            this.list = response.data
-
-        })
-        .catch(error => {
-            console.log(error)
-        })
-
     }
     static navigationOptions = ({ navigation }) => {
         return {
@@ -45,14 +44,26 @@ export default class Profile extends React.Component{
         }
     }
 
-    //FIREBASE.GETINSTANCE.().aCTIVITY."MATRICULO".CUBI.ENTRADA.SET
     componentDidMount(){
+
         axios.get(this.path + 'publications/')
         .then( response => {
-            //console.log(response.data)
-            this.list = response.data.reverse()
-            this.forceUpdate()
+            console.log(response.data)
+            this.setState({list: response.data.reverse() })
+        })
+        .catch(error => {
+            console.log(error)
+        })
 
+    }
+
+    _onRefresh = () => {
+        this.setState({refreshing: true})
+
+        axios.get(this.path + 'publications/')
+        .then( response => {
+            this.setState({list: response.data.reverse() })
+            this.setState({refreshing: false})
         })
         .catch(error => {
             console.log(error)
@@ -60,20 +71,16 @@ export default class Profile extends React.Component{
     }
 
     render(){
-
-        axios.get(this.path + 'publications/')
-        .then( response => {
-            //console.log(response.data)
-            this.list = response.data.reverse()
-
-        })
-        .catch(error => {
-            console.log(error)
-        })
         return(
             <View style={styles.container}>
                 <View style={styles.screenContainer}>
-                    <ScrollView>
+                    <ScrollView
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.refreshing}
+                                onRefresh={this._onRefresh}
+                            />
+                        }>
                         <View style={styles.screenContainer}>
                             <FlatList
                                 horizontal={true}
@@ -101,7 +108,7 @@ export default class Profile extends React.Component{
                             />
                         </View>
                         <FlatList 
-                            data={this.list}
+                            data={this.state.list}
                             renderItem={({item}) => 
                                 <View style={styles.publicationsContainer}>
                                         <View style={styles.publication}>
@@ -111,7 +118,7 @@ export default class Profile extends React.Component{
                                                         style={styles.avatarPublication}
                                                         source={require('../../assets/default-avatar.png')}/>
                                                         <View styles={styles.publicationInformation}>
-                                                            <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                            <Text style={styles.publicationUserName}>{item.user_id == null ? 'mr. Nobody' : item.user.name}</Text>
                                                             <Text style={styles.publicationDate}>{item.created_at.substr(0,10)}</Text>
                                                         </View>
                                                 </View>
