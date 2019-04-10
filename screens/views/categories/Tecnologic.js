@@ -41,8 +41,8 @@ export default class Tecnologic extends React.Component{
         .catch(error => {
             console.log(error)
         })
-
     }
+
     static navigationOptions = {
         title: this.categorie
     }

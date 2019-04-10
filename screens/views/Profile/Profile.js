@@ -184,7 +184,7 @@ export default class Meat extends React.Component{
                                                         style={styles.avatarPublication}
                                                         source={require('../../../assets/default-avatar.png')}/>
                                                         <View styles={styles.publicationInformation}>
-                                                            <Text style={styles.publicationUserName}>Uriel Robles</Text>
+                                                            <Text style={styles.publicationUserName}>{item.user_id == null ? 'mr. Nobody' : item.user.name}</Text>
                                                             <Text style={styles.publicationDate}>{item.created_at.substr(0,10)}</Text>
                                                         </View>
                                                 </View>

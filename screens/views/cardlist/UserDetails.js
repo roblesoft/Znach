@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, FlatList } from 'react-native';
+import { Text, View, Image, FlatList, AsyncStorage } from 'react-native';
 import Card from './Card';
 import CardHeader from './CardHeader';
 import CardContent from './CardContent';
@@ -7,9 +7,13 @@ import CardButton from './CardButton';
 import ButtonDeal from './ButtonDeal';
 import ButtonCancel from './ButtonCancel';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import axios from'axios'
+
+
+
 
 const UserDetails = ({ user }) => {
-	const { name, specialty, age, city, skills } = user;
+	const { name, specialty, age, city, skills, id } = user;
 	console.log(skills)
   const {
 	userData,
@@ -22,7 +26,38 @@ const UserDetails = ({ user }) => {
     thumbnailContainerStyle,
 		headerTextStyle,
 		skill
-  } = styles;
+	} = styles;
+   _retrieveData = async () => {
+        try{
+            const user_id = await AsyncStorage.getItem('user_id')
+            const user_name = await AsyncStorage.getItem('user_name')
+            if(user_name !== null){
+                //console.log(user_name)
+                //console.log(`${user_id} id usuario`)
+                return user_id
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
+    async function sendInvitation(invited_id){
+       const user_id = await _retrieveData()
+        const path = "http://polar-savannah-83006.herokuapp.com/"
+        axios.post(path + 'invitations/', {
+            invitation: {
+                host_id: user_id, 
+                invited_id: invited_id,
+                accepted: false
+            },
+        })
+        .then(response => {
+            console.log(response.status)
+        })
+        .catch(error => {
+            console.log(error)
+        })
+    }
+
 
 return (
 	<Card>
@@ -75,7 +110,8 @@ return (
 			</View>
 		</View>
 		<CardButton>
-			<ButtonDeal onPress={() => console.log(name)} />
+
+			<ButtonDeal onPress={() => sendInvitation(id)} />
 		</CardButton>
 	</Card>
   );
