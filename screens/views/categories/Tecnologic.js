@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView, FlatList, AsyncStorage } from 'react-native';
+import UserList from './../cardlist/UserList'
 import axios from 'axios'
 
 export default class Tecnologic extends React.Component{
@@ -10,18 +11,7 @@ export default class Tecnologic extends React.Component{
         this.categorie = this.props.navigation.state.params.categorie
         this.sendInvitation = this.sendInvitation.bind(this)
         this.press = this.press.bind(this)
-        axios.get(`${this.path}user_publications/categories/`, {
-            params: {categorie: this.categorie}
-        })
-        .then(response => {
-            console.log(response.data)
-            this.state.list = response.data
-            this.forceUpdate()
 
-        })
-        .catch(error => {
-            console.error(error)
-        })
     }
     _retrieveData = async () => {
         try{
@@ -44,7 +34,6 @@ export default class Tecnologic extends React.Component{
                 invited_id: invited_id,
                 accepted: false
             },
-            xsrfHeaderName: 'X-XSRF-TOKEN'
         })
         .then(response => {
             console.log(response.status)
@@ -67,19 +56,7 @@ export default class Tecnologic extends React.Component{
 
         return(
             <View>
-                <FlatList
-                    data={this.state.list}
-                    KeyExtractor={this._keyExtractor}
-                    renderItem={({item}) =>
-                    <View>
-                        <Text>dd</Text>
-                        <Text>{item.name}</Text>
-                        <Button title={"añadir"} onPress={() => this.sendInvitation(item.id)}/>
-                    </View>
-                }
-                    
-                />
-
+                <UserList categorie={this.categorie}/>
             </View>            
         );
     }
