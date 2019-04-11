@@ -4,6 +4,7 @@ import {createStackNavigator, createAppContainer} from 'react-navigation'
 import Feed from './feed'
 import Message from './Home/Message';
 import NuevaPublicacion from './Home/NuevaPublicacion';
+import Chat from './Home/Chat'
 
 export default createStackNavigator(
     {
@@ -19,6 +20,9 @@ export default createStackNavigator(
 
         NuevaPublicacion: {
             screen: NuevaPublicacion
+        },
+        Chat: {
+            screen: Chat
         }
     },
     {

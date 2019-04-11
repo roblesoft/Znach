@@ -52,11 +52,25 @@ export default class Notifications extends React.Component{
     }
 
 
-    acceptInvitation(invitation_id){
+    deleteInvitation(invitation_id){
+        axios.delete(this.path + 'invitations/' + invitation_id)
+        .then(response => {
+            console.log(response.status)
+
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+    }
+
+    async acceptInvitation(invitation_id, host_id){
         alert(invitation_id)
         axios.put(this.path + 'invitations/' + invitation_id , 
         {
-            invitation: {accepted: true}
+            invitation: {accepted: true},
+            owner_one: host_id,
+            owner_two: await this._retrieveData()
         })
         .then(response => {
             console.log(response.status)
@@ -105,13 +119,22 @@ export default class Notifications extends React.Component{
                                         <Image
                                             style={styles.avatarPublication}
                                             source={require('../../assets/default-avatar.png')}/>
-                                        <View style={{flex: 1, flexDirection: 'col'}}>
+                                        <View style={{flex: 1, flexDirection: 'column'}}>
                                         <Text style={{fontWeight: 'bold', paddingLeft: 10}}>{item.host.name}</Text>
                                         <Text style={{ paddingLeft: 10}}>{item.host.city}</Text>
                                         <Text style={{ paddingLeft: 10}}>{item.host.specialty}</Text>
                                         </View>
                                     </View>
-                                    <Ionicons name={'ios-checkmark-circle'} size={50} color={'#00ADB5'} onPress={() => this.acceptInvitation(item.id)}/>
+                                    <Ionicons 
+                                        name={'ios-checkmark-circle'} 
+                                        size={40} color={'#00ADB5'} 
+                                        style={{marginRight: 10}}
+                                        onPress={() => this.acceptInvitation(item.id, item.host.id)}/>
+                                    <Ionicons 
+                                        name={'ios-close-circle'} 
+                                        size={40} 
+                                        color={'#b50800'} 
+                                        onPress={() => this.deleteInvitation(item.id)}/>
                                 </View>
                         }/>
                 </ScrollView>

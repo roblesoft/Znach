@@ -1,10 +1,13 @@
 import React from 'react'
-import { StyleSheet, Text, View, Button, TextInput, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, ScrollView, FlatList, TouchableOpacity } from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import axios from 'axios'
 
 export default class Message extends React.Component{
     constructor(props){
         super(props)
+        this.state = {chats: [], user_id: ''}
+        this.path = "http://polar-savannah-83006.herokuapp.com/"
 
     }
     static navigationOptions = ({ navigation }) => {
@@ -19,15 +22,52 @@ export default class Message extends React.Component{
             ),
         };
     }
+
+    _retrieveData = async () => {
+        try{
+            const user_id = await AsyncStorage.getItem('user_id')
+            const user_name = await AsyncStorage.getItem('user_name')
+            if(user_name !== null){
+                //console.log(user_name)
+                //console.log(`${user_id} id usuario`)
+                return user_id
+            }
+        }catch(error){
+            console.error(error)
+        }
+    }
+
+    async componentDidMount(){
+        this.setState({user_id: await this._retrieveData()}) 
+        axios.get(this.path + 'user_publications/chats/',{
+            params: {
+                user_id: this.state.user_id
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            this.setState({chats: response.data})
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
+    }
     
     render(){
         return(
             <View styles={styles.container}>
-                <View style={styles.screenContainer}>
+                <View >
                     <ScrollView>
-                        <View style={styles.header}>
-                            <Text style={styles.titleHeader}>Notificaciones</Text>
-                        </View>
+                        <FlatList
+                            data={this.state.chats}
+                            renderItem={({item}) =>
+                            <TouchableOpacity style={{borderWidth: 1}} onPress={() => this.props.navigation.navigate('Chat', {owner_one: item.owner_one.name, owner_one_id: item.owner_one.id})}>
+                                <Text>d</Text>
+                                <Text>{item.owner_one.name}</Text>
+                            </TouchableOpacity>
+                        }
+                        />
                     </ScrollView>
 
                 </View>
@@ -39,9 +79,6 @@ export default class Message extends React.Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    screenContainer: {
-        flex: .9
     },
     titleHeader: {
         fontSize: 35,
