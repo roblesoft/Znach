@@ -69,6 +69,7 @@ export default class Chat extends React.Component{
         })
     }
 
+
     render(){
         return(
             <View style={styles.container}>

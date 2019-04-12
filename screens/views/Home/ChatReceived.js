@@ -39,7 +39,6 @@ export default class Chat extends React.Component{
 
 
     async componentDidMount(){
-        this.interval = setInterval(() => this.tick(), 500);
         this.setState({user_id: await this._retrieveData()})
         axios.get(this.path + 'chats/' + this.props.navigation.state.params.chat_id)
         .then(response => {
@@ -51,9 +50,6 @@ export default class Chat extends React.Component{
         })
     }
 
-    componentWillUnmount(){
-        clearInterval(this.interval);
-    }
 
     sendMessage =  async () => {
         console.log("send")
@@ -85,7 +81,7 @@ export default class Chat extends React.Component{
                         renderItem={({item}) => 
                             <View style={[styles.messageDirection, this.rowDirection(item.owner_one_id, this.state.user_id )] }>
                                 <View style={styles.message}>
-                                    <Text>{item.owner_one.name}</Text>
+                                    <Text style={styles.owner}>{item.owner_one.name}</Text>
                                     <Text style={{color: 'white'}}>{item.text}</Text>
                                 </View>
                             </View>
@@ -151,5 +147,10 @@ const styles = StyleSheet.create({
     messageDirection: {
         flex: 1,
         flexDirection: 'row-reverse'
+    },
+    owner: {
+        fontWeight: 'bold',
+        color: 'white'
+
     }
 })
