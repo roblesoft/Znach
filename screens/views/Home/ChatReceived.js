@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, AsyncStorage, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, Text, View, AsyncStorage, ScrollView, FlatList , TextInput} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import axios from 'axios'
 
@@ -16,7 +16,7 @@ export default class Chat extends React.Component{
         this.path = "http://polar-savannah-83006.herokuapp.com/"
     }
 
-   _retrieveData = async () => {
+    _retrieveData = async () => {
         try{
             const user_id = await AsyncStorage.getItem('user_id')
             const user_name = await AsyncStorage.getItem('user_name')
@@ -30,14 +30,17 @@ export default class Chat extends React.Component{
         }
     }
 
-    rowDirection( user_one, user_two){
-        return { justifyContent: user_one == user_two ? 'flex-start': 'flex-end'}
-    }
+    tick() {
+            this.setState(prevState => ({
+              time: prevState.seconds + 1
+            }));
+          }
+        
 
 
     async componentDidMount(){
+        this.interval = setInterval(() => this.tick(), 500);
         this.setState({user_id: await this._retrieveData()})
-        console.log(this.state.user_id)
         axios.get(this.path + 'chats/' + this.props.navigation.state.params.chat_id)
         .then(response => {
             console.log(response.data.messages)
@@ -48,12 +51,16 @@ export default class Chat extends React.Component{
         })
     }
 
+    componentWillUnmount(){
+        clearInterval(this.interval);
+    }
+
     sendMessage =  async () => {
         console.log("send")
         axios.post(this.path + 'messages/', {
             message: {
                 text: this.state.text,
-                owner_two_id: this.props.navigation.state.params.owner_two_id,
+                owner_two_id: this.props.navigation.state.params.owner_one_id,
                 owner_one_id: await this._retrieveData(),
                 chat_id: this.props.navigation.state.params.chat_id
             }
@@ -61,24 +68,24 @@ export default class Chat extends React.Component{
         .then(response => {
             console.log(response.data)
             console.log(response.status)
-            this.setState({message: ''})
+        })
 
-        })
-        .catch(error => {
-            console.log(error)
-        })
+    }
+
+    rowDirection( user_one, user_two){
+        return { justifyContent: user_one == user_two ? 'flex-start': 'flex-end'}
     }
 
     render(){
         return(
             <View style={styles.container}>
-                <Text style={{padding: 15}}>{this.props.navigation.state.params.owner_two}</Text>
+                <Text style={{padding: 15}}>{this.props.navigation.state.params.owner_one}</Text>
                     <FlatList   
                         data={this.state.messages}
                         renderItem={({item}) => 
                             <View style={[styles.messageDirection, this.rowDirection(item.owner_one_id, this.state.user_id )] }>
                                 <View style={styles.message}>
-                                    <Text style={styles.owner}>{item.owner_one.name}</Text>
+                                    <Text>{item.owner_one.name}</Text>
                                     <Text style={{color: 'white'}}>{item.text}</Text>
                                 </View>
                             </View>
@@ -111,7 +118,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#00ADB5',
         marginBottom: 10,
         borderRadius: 10,
-        marginHorizontal: 10
+        marginHorizontal: 10,
     },
     messageInput: {
         flexDirection: 'row',
@@ -144,9 +151,5 @@ const styles = StyleSheet.create({
     messageDirection: {
         flex: 1,
         flexDirection: 'row-reverse'
-    },
-    owner: {
-        fontWeight: 'bold',
-        color: 'white'
     }
 })

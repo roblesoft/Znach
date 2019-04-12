@@ -6,7 +6,9 @@ import axios from 'axios'
 export default class Message extends React.Component{
     constructor(props){
         super(props)
-        this.state = {chats: [], user_id: ''}
+        this.state = {chats: [], 
+                     user_id: '',
+                     chats_received: []}
         this.path = "http://polar-savannah-83006.herokuapp.com/"
 
     }
@@ -52,6 +54,19 @@ export default class Message extends React.Component{
             console.log(error)
         })
 
+        axios.get(this.path + 'user_publications/chats_received/',{
+            params: {
+                user_id: this.state.user_id
+            }
+        })
+        .then(response => {
+            console.log(response.data)
+            this.setState({chats_received: response.data})
+        })
+        .catch(error => {
+            console.log(error)
+        })
+
     }
     
     render(){
@@ -62,9 +77,18 @@ export default class Message extends React.Component{
                         <FlatList
                             data={this.state.chats}
                             renderItem={({item}) =>
-                            <TouchableOpacity style={{borderWidth: 1}} onPress={() => this.props.navigation.navigate('Chat', {owner_one: item.owner_one.name, owner_one_id: item.owner_one.id})}>
-                                <Text>d</Text>
+                            <TouchableOpacity style={styles.chat} onPress={() => this.props.navigation.navigate('Chat', {owner_two: item.owner_two.name, owner_two_id: item.owner_two.id, chat_id: item.id})}>
+                                <Text>{item.owner_two.name}</Text>
+                                <Text>{item.owner_two.specialty}</Text>
+                            </TouchableOpacity>
+                        }
+                        />
+                        <FlatList
+                            data={this.state.chats_received}
+                            renderItem={({item}) =>
+                            <TouchableOpacity style={styles.chat} onPress={() => this.props.navigation.navigate('ChatReceived', {owner_one: item.owner_one.name, owner_one_id: item.owner_one.id, chat_id: item.id})}>
                                 <Text>{item.owner_one.name}</Text>
+                                <Text>{item.owner_one.specialty}</Text>
                             </TouchableOpacity>
                         }
                         />
@@ -131,6 +155,14 @@ const styles = StyleSheet.create({
       marginRight: 20
     },
     name: {
+    },
+    chat: {
+        borderWidth: 1, 
+        marginTop: 10, 
+        marginHorizontal: 10,
+        borderRadius: 10,
+        padding: 19
     }
+
     
 })
