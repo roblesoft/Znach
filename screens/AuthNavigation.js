@@ -8,12 +8,14 @@ import Meat from './views/Meat'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import Categories from './views/CategoriesNav'
 import HomeFeed from './views/FeedNav'
+import Proyecto from './views/Proyecto'
 
 const SignedIn = createBottomTabNavigator({
     Home: HomeFeed,
     Meat: Categories,
     Notifications: Notifications,
-    Profile: Profile
+    Profile: Profile,
+    Proyecto: Proyecto,
 },
 {
     defaultNavigationOptions: ({navigation}) => ({
@@ -42,6 +44,11 @@ const SignedIn = createBottomTabNavigator({
                     iconName = `ios-person`
                     iconColor = focused ? '#00ADB5' : '#cccccc'
                 }
+                break;
+                case 'Proyecto': {
+                    iconName = `ios-today`
+                    iconColor = focused ? '#00ADB5' : '#cccccc'
+                }
             }
             return <IconComponent name={iconName} size={30} color={iconColor}/>;
         },
@@ -56,20 +63,11 @@ const SignedIn = createBottomTabNavigator({
                     return null
                 case 'Profile':
                     return null
+                case 'Proyecto':
+                    return null
             }
         }
     }),
-})
-
-const styles = StyleSheet.create({
-    labelColorFocus: {
-        color: '#00ADB5',
-        fontSize: 10
-    },
-    labelColorUnfocus: {
-        color: 'gray',
-        fontSize: 10
-    }
 })
 
 export default createAppContainer(SignedIn)

@@ -48,6 +48,13 @@ export default class Meat extends React.Component{
                                 <Text style={styles.categoriesText}>Administración</Text>
                             </TouchableOpacity>
                         </View>
+                        <View style={styles.categoriesContainer}>
+                            <TouchableOpacity 
+                                style={[styles.categorie, {backgroundColor: '#8F1717'}]}
+                                onPress={() => this.props.navigation.navigate('Proyects', {categorie: "Proyectos"})}>
+                                <Text style={styles.categoriesText}>Proyectos</Text>
+                            </TouchableOpacity>
+                        </View>
                     </ScrollView>
             </View>
         );
@@ -57,24 +64,6 @@ export default class Meat extends React.Component{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    screenContainer: {
-        flex: .9
-    },
-    titleHeader: {
-        fontSize: 35,
-        fontWeight: 'bold',
-        paddingTop: 30
-    },
-    header:{
-        justifyContent: 'space-between',
-        flexDirection: 'row',
-        height: 85,
-        paddingLeft: 15,
-        paddingRight: 15,
-        backgroundColor: '#fff529',
-        borderBottomLeftRadius: 15,
-        borderBottomRightRadius: 15,
     },
     textGray: {
         fontSize: 15,

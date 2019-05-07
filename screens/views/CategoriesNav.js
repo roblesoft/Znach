@@ -5,6 +5,7 @@ import Tecnologic from './categories/Tecnologic'
 import Bussines from './categories/Bussines'
 import Science from './categories/Science'
 import Administration from './categories/Administration'
+import Proyects from './categories/Proyects'
 
 export default createStackNavigator(
     {
@@ -28,7 +29,10 @@ export default createStackNavigator(
         },
         Administration: {
             screen: Administration
-        }
+        },
+        Proyects: {
+            screen: Proyects
+        },
     },
     {
         defaultNavigationOptions: {

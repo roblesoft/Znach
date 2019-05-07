@@ -43,44 +43,6 @@ const styles = StyleSheet.create({
         paddingBottom: 20,
         borderBottomWidth: 0.5,
         borderBottomColor: 'gray'
-    },
-    textGray: {
-        fontSize: 15,
-        color: 'gray'
-    },
-    avatar:{
-        borderRadius: 35,
-        height: 70,
-        width: 70,
-    },
-    list: {
-        margin: 10
-
-    },
-    categories: {
-        fontSize: 18,
-        marginRight: 30,
-        marginTop: 10,
-      
-    },
-    welcome: {
-        width: 300,
-        height: 150,
-        backgroundColor: '#66A0CC',
-        margin: 10,
-        paddingTop: 100,
-        borderRadius: 30,
-        paddingLeft: 20,
-        color: '#fff'
-
-    },
-    userCont:{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginRight: 20
-    },
-    name: {
     }
     
 })

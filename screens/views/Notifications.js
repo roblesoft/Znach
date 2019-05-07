@@ -56,12 +56,10 @@ export default class Notifications extends React.Component{
         axios.delete(this.path + 'invitations/' + invitation_id)
         .then(response => {
             console.log(response.status)
-
         })
         .catch(error => {
             console.log(error)
         })
-
     }
 
     async acceptInvitation(invitation_id, host_id){
@@ -76,6 +74,7 @@ export default class Notifications extends React.Component{
             console.log(response.status)
             console.log(response.data)
         })
+
         .catch(error => {
             console.log(error)
         })
@@ -120,9 +119,9 @@ export default class Notifications extends React.Component{
                                             style={styles.avatarPublication}
                                             source={require('../../assets/default-avatar.png')}/>
                                         <View style={{flex: 1, flexDirection: 'column'}}>
-                                        <Text style={{fontWeight: 'bold', paddingLeft: 10}}>{item.host.name}</Text>
-                                        <Text style={{ paddingLeft: 10}}>{item.host.city}</Text>
-                                        <Text style={{ paddingLeft: 10}}>{item.host.specialty}</Text>
+                                        <Text style={{color: '#FFF', fontWeight: 'bold', paddingLeft: 10}}>{item.host.name}</Text>
+                                        <Text style={{ color: '#FFF', paddingLeft: 10}}>{item.host.city}</Text>
+                                        <Text style={{ color: '#FFF', paddingLeft: 10}}>{item.host.specialty}</Text>
                                         </View>
                                     </View>
                                     <Ionicons 
@@ -148,9 +147,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         backgroundColor: '#e6ebf1',
     },
-    screenContainer: {
-        flex: .9
-    },
     titleHeader: {
         fontSize: 35,
         fontWeight: 'bold',
@@ -164,45 +160,9 @@ const styles = StyleSheet.create({
         paddingRight: 15,
         backgroundColor: '#fff529',
     },
-    textGray: {
-        fontSize: 15,
-        color: 'gray'
-    },
-    avatar:{
-        borderRadius: 35,
-        height: 70,
-        width: 70,
-    },
-    list: {
-        margin: 10
-
-    },
-    categories: {
-        fontSize: 18,
-        marginRight: 30,
-        marginTop: 10,
-      
-    },
-    welcome: {
-        width: 300,
-        height: 150,
-        backgroundColor: '#66A0CC',
-        margin: 10,
-        paddingTop: 100,
-        borderRadius: 30,
-        paddingLeft: 20,
-        color: '#fff'
-
-    },
-    userCont:{
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginRight: 20
-    },
-    name: {
-    },
     notification: {
+        backgroundColor: '#00ADB5',
+        borderColor:'#00ADB5',
         borderRadius: 20,
         borderWidth: 1,
         paddingHorizontal: 10,
